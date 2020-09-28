@@ -24,16 +24,18 @@
                 <td>{{ user.lastName }}</td>
             </tr>
             <tr>
-                <th>Username</th>
-                <td>{{ user.username }}</td>
+                <th>Nickname</th>
+                <td>{{ user.nickname }}</td>
             </tr>
             <tr>
                 <th>Description</th>
                 <td>{{ user.description }}</td>
             </tr>
             <tr>
-                <th>Picture_name</th>
-                <td>{{ user.pictureName }}</td>
+                <th>Picture</th>
+                <td>
+                    <img src="{{ asset('uploads/users/' ~ user.pictureName) }}" alt="{{ user.pictureName }}" class="img-fluid">
+                </td>
             </tr>
         </tbody>
     </table>
