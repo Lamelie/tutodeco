@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=TutorialRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Tutorial
 {
@@ -35,7 +36,7 @@ class Tutorial
     private $picture;
 
     /**
-     * @ORM\Column(type="time")
+     * @ORM\Column(type="integer")
      */
     private $duration;
 
@@ -45,7 +46,7 @@ class Tutorial
     private $created_at;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $validation;
 
@@ -65,7 +66,7 @@ class Tutorial
     private $comments;
 
     /**
-     * @ORM\ManyToMany(targetEntity=tag::class, inversedBy="tutorials")
+     * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="tutorials")
      */
     private $tags;
 
@@ -150,17 +151,18 @@ class Tutorial
         return $this;
     }
 
-    public function getDuration(): ?\DateTimeInterface
+    public function getDuration(): ?int
     {
         return $this->duration;
     }
 
-    public function setDuration(\DateTimeInterface $duration): self
+    public function setDuration(int $duration): self
     {
         $this->duration = $duration;
 
         return $this;
     }
+
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -174,12 +176,12 @@ class Tutorial
         return $this;
     }
 
-    public function getValidation(): ?bool
+    public function getValidation(): ?string
     {
         return $this->validation;
     }
 
-    public function setValidation(bool $validation): self
+    public function setValidation(string $validation): self
     {
         $this->validation = $validation;
 
@@ -280,14 +282,14 @@ class Tutorial
     }
 
     /**
-     * @return Collection|tag[]
+     * @return Collection|Tag[]
      */
     public function getTags(): Collection
     {
         return $this->tags;
     }
 
-    public function addTag(tag $tag): self
+    public function addTag(Tag $tag): self
     {
         if (!$this->tags->contains($tag)) {
             $this->tags[] = $tag;
@@ -296,7 +298,7 @@ class Tutorial
         return $this;
     }
 
-    public function removeTag(tag $tag): self
+    public function removeTag(Tag $tag): self
     {
         if ($this->tags->contains($tag)) {
             $this->tags->removeElement($tag);
@@ -392,6 +394,14 @@ class Tutorial
 
         return $this;
     }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function prePersist() {
+        $this->setCreatedAt(new \DateTime());
+    }
+
 
 
 }
