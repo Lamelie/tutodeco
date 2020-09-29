@@ -13,6 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Tutorial
 {
+
+    //TODO: ajouter des constantes pour les statuts de validation
+    const VALIDATION_PENDING = "En attente de validation";
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -43,7 +47,7 @@ class Tutorial
     /**
      * @ORM\Column(type="datetime")
      */
-    private $created_at;
+    private $createdAt;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -166,12 +170,12 @@ class Tutorial
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }

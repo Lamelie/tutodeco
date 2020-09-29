@@ -6,11 +6,14 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -27,17 +30,28 @@ class User
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $first_name;
+    private $firstName;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
+
+    /**
+     * @var string The hashed password
+     * @ORM\Column(type="string")
+     */
+    private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $last_name;
+    private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $username;
+    private $nickname;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -47,7 +61,7 @@ class User
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $picture_name;
+    private $pictureName;
 
     /**
      * @ORM\OneToMany(targetEntity=UserTutorial::class, mappedBy="user", orphanRemoval=true)
@@ -60,14 +74,14 @@ class User
     private $comments;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="user_tos")
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="userTos")
      */
-    private $user_froms;
+    private $userFroms;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="user_from")
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="userFroms")
      */
-    private $user_tos;
+    private $userTos;
 
     /**
      * @ORM\OneToMany(targetEntity=Tutorial::class, mappedBy="user")
@@ -78,8 +92,8 @@ class User
     {
         $this->userTutorials = new ArrayCollection();
         $this->comments = new ArrayCollection();
-        $this->user_froms = new ArrayCollection();
-        $this->user_tos = new ArrayCollection();
+        $this->userFroms = new ArrayCollection();
+        $this->userTos = new ArrayCollection();
         $this->tutorials = new ArrayCollection();
     }
 
@@ -100,38 +114,99 @@ class User
         return $this;
     }
 
-    public function getFirstName(): ?string
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
     {
-        return $this->first_name;
+        return (string) $this->email;
     }
 
-    public function setFirstName(string $first_name): self
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
     {
-        $this->first_name = $first_name;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getPassword(): string
+    {
+        return (string) $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getSalt()
+    {
+        // not needed when using the "bcrypt" algorithm in security.yaml
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
 
         return $this;
     }
 
     public function getLastName(): ?string
     {
-        return $this->last_name;
+        return $this->lastName;
     }
 
-    public function setLastName(string $last_name): self
+    public function setLastName(string $lastName): self
     {
-        $this->last_name = $last_name;
+        $this->lastName = $lastName;
 
         return $this;
     }
 
-    public function getUsername(): ?string
+    public function getNickname(): ?string
     {
-        return $this->username;
+        return $this->nickname;
     }
 
-    public function setUsername(?string $username): self
+    public function setNickname(?string $nickname): self
     {
-        $this->username = $username;
+        $this->nickname = $nickname;
 
         return $this;
     }
@@ -150,12 +225,12 @@ class User
 
     public function getPictureName(): ?string
     {
-        return $this->picture_name;
+        return $this->pictureName;
     }
 
-    public function setPictureName(?string $picture_name): self
+    public function setPictureName(?string $pictureName): self
     {
-        $this->picture_name = $picture_name;
+        $this->pictureName = $pictureName;
 
         return $this;
     }
@@ -227,13 +302,13 @@ class User
      */
     public function getUserFroms(): Collection
     {
-        return $this->user_froms;
+        return $this->userFroms;
     }
 
     public function addUserFrom(self $userFrom): self
     {
-        if (!$this->user_froms->contains($userFrom)) {
-            $this->user_froms[] = $userFrom;
+        if (!$this->userFroms->contains($userFrom)) {
+            $this->userFroms[] = $userFrom;
         }
 
         return $this;
@@ -241,8 +316,8 @@ class User
 
     public function removeUserFrom(self $userFrom): self
     {
-        if ($this->user_froms->contains($userFrom)) {
-            $this->user_froms->removeElement($userFrom);
+        if ($this->userFroms->contains($userFrom)) {
+            $this->userFroms->removeElement($userFrom);
         }
 
         return $this;
@@ -253,13 +328,13 @@ class User
      */
     public function getUserTos(): Collection
     {
-        return $this->user_tos;
+        return $this->userTos;
     }
 
     public function addUserTo(self $userTo): self
     {
-        if (!$this->user_tos->contains($userTo)) {
-            $this->user_tos[] = $userTo;
+        if (!$this->userTos->contains($userTo)) {
+            $this->userTos[] = $userTo;
             $userTo->addUserFrom($this);
         }
 
@@ -268,8 +343,8 @@ class User
 
     public function removeUserTo(self $userTo): self
     {
-        if ($this->user_tos->contains($userTo)) {
-            $this->user_tos->removeElement($userTo);
+        if ($this->userTos->contains($userTo)) {
+            $this->userTos->removeElement($userTo);
             $userTo->removeUserFrom($this);
         }
 
