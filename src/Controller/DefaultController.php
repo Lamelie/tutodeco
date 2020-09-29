@@ -16,4 +16,9 @@ class DefaultController extends AbstractController
             'controller_name' => 'Amélie',
         ]);
     }
+
+    public function tutoNav ()
+    {
+        return $this->render("default/_menu.html.twig");
+    }
 }

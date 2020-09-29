@@ -2,13 +2,26 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <!-- Le meta magique pour les appareils mobiles :)-->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <title>{% block title %}TutoDéco{% endblock %}</title>
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
+            <link href="https://fonts.googleapis.com/css2?family=Ropa+Sans&display=swap" rel="stylesheet">
         {% endblock %}
     </head>
+
+    {#appel de la page Nav pour affichage du menu de navigation#}
+    {{ render(controller(
+        'App\\Controller\\DefaultController::tutoNav')
+    ) }}
+
     <body>
-        {% block body %}{% endblock %}
+    <main class="main-content container">
+
+    {% block body %}
+    {% endblock %}
+    </main>
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
