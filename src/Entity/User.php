@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\String\Slugger\AsciiSlugger as Slugger;
+
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -87,6 +89,11 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity=Tutorial::class, mappedBy="user")
      */
     private $tutorials;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -386,4 +393,19 @@ class User implements UserInterface
     {
         return $this->getFirstname() . " " . $this->getLastname();
     }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $firstname, $lastname, $nickname): self
+    {
+        $slug = new Slugger();
+        $slug->slug($firstname, $lastname, $nickname);
+        $this->slug = $slug;
+
+        return $this;
+    }
+
 }

@@ -29,7 +29,7 @@
                 <td>{{ user.description }}</td>
                 <td>{{ user.pictureName }}</td>
                 <td>
-                    <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
+                    <a href="{{ path('user_show', {'slug' : user.slug})}}">show</a>
                     <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
                 </td>
             </tr>

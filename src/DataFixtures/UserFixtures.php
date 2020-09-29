@@ -30,6 +30,7 @@ class UserFixtures extends Fixture
         $user1->setNickname("La fille de Rennes");
         $user1->setPictureName("amelie.png");
         $user1->setRoles(["ROLE_ADMIN"]);
+        $user1->setSlug("la-fille-de-rennes");
         $manager->persist($user1);
         $this->addReference("amelie", $user1);
 
@@ -46,6 +47,7 @@ class UserFixtures extends Fixture
         $user2->setPictureName("ethel.png");
         $user2->setRoles(["ROLE_USER"]);
         $user2->addUserTo($this->getReference("amelie"));
+        $user2->setSlug("ethel-h");
         $manager->persist($user2);
         $this->addReference("ethel", $user2);
 
@@ -58,6 +60,7 @@ class UserFixtures extends Fixture
         $user3->setDescription("J'ai 65ans et j'habite Morlaix. J'aime beaucoup présenter mes projets de déco.");
         $user3->setFirstName("Catherine");
         $user3->setLastName("Roche");
+        $user3->setSlug("catherine-r");
         $user3->setRoles(["ROLE_USER"]);
         $manager->persist($user3);
         $this->addReference("cath", $user3);
