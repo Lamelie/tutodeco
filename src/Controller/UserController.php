@@ -47,6 +47,7 @@ class UserController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+//TODO:faire des slugs pour les noms des utilisateurs ou nickname
 
     /**
      * @Route("/{id}", name="user_show", methods={"GET"})

@@ -1,4 +1,4 @@
-<nav class="tutonav">
+<nav class="tutonav container-fluid">
     <img src="{{ asset('uploads/logo/logo.png') }}" alt="logo" class="img-fluid tutologo">
     <ul class="navbar-nav">
         <li>
@@ -9,6 +9,13 @@
         </li>
         <li>
             <a href="#">Les plus réalisés</a>
+        </li>
+        <li>
+            {% if app.user %}
+            Bonjour, {{ app.user.firstName }} (<a href="{{ path('app_logout') }}">Se déconnecter</a>)
+            {% else %}
+            <a href="{{ path('app_login') }}">Se connecter</a>
+            {% endif %}
         </li>
     </ul>
 

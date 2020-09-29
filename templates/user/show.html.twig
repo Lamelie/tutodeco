@@ -1,48 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User{% endblock %}
+{% block title %}{{ user.firstName }} {{ user.lastName }}{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>First_name</th>
-                <td>{{ user.firstName }}</td>
-            </tr>
-            <tr>
-                <th>Last_name</th>
-                <td>{{ user.lastName }}</td>
-            </tr>
-            <tr>
-                <th>Nickname</th>
-                <td>{{ user.nickname }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ user.description }}</td>
-            </tr>
-            <tr>
-                <th>Picture</th>
-                <td>
+    <div class="row">
+        <div class="card card-profile col-lg-8" >
+            <div class="card-body">
+                <div class="card-profile-id">
                     <img src="{{ asset('uploads/users/' ~ user.pictureName) }}" alt="{{ user.pictureName }}" class="img-fluid">
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                    <h5 class="card-title">{% if user.nickname %}{{ user.nickname }} {% else %}{{ user.firstName }} {{ user.lastName }} {% endif %}</h5>
+                    {% if app.user == user %}<a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>{% endif %}
+                </div>
+                <p class="card-text card-profile-text">{{ user.description}}</p>
+            </div>
+        </div>
+        <div class="card col-lg-4">
+            <div class="card-body card-profile-follow">
+                <a href="#" class="card-profile-subscribe">S'abonner</a>
+                <div>
+                    <a href="#" class="card-link">{{ user.userTos.count }} abonnements</a>
+                    <a href="#" class="card-link">{{ user.userFroms.count }} abonnés</a>
+                </div>
+            </div>
+        </div>
 
-    <a href="{{ path('user_index') }}">back to list</a>
+    </div>
 
-    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
 
-    {{ include('user/_delete_form.html.twig') }}
+
 {% endblock %}
