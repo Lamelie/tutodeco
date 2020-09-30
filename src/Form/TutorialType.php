@@ -6,6 +6,7 @@ use App\Entity\Tutorial;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class TutorialType extends AbstractType
 {
@@ -14,10 +15,8 @@ class TutorialType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('picture')
+            ->add('imageFile', VichImageType::class)
             ->add('duration')
-            ->add('created_at')
-            ->add('validation')
             ->add('tags')
             ->add('materials')
             ->add('tools')
