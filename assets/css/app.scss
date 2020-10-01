@@ -159,4 +159,25 @@ pour écran de téléphone mobile (moins de 600px)*/
 
 }
 
+/* PAGE TUTORIEL */
+
+
+/* pour tablettes en mode paysage (768px et plus) */
+@media only screen and (min-width: 768px) {
+    .card-tuto {
+        &-image {
+            height: 15rem;
+            width: 15rem;
+            object-fit : cover;
+        }
+        &-description {
+            display: flex;
+            flex-direction: column;
+        }
+        &-title {
+            display: flex;
+        }
+
+    }
+}
 

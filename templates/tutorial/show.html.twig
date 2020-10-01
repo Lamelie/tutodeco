@@ -3,6 +3,27 @@
 {% block title %}Tutorial{% endblock %}
 
 {% block body %}
+
+    <div class="row">
+        <div class="card card-profile col-lg-8" >
+            <div class="card-body">
+                <img src="{{ asset('uploads/tutorials/' ~ tutorial.imageName) }}" alt="{{ tutorial.imageName }}" class="img-fluid card-tuto-image">
+                <div class="card-tuto-description">
+                    <div class="card-tuto-title">
+                        <h5>{{ tutorial.title }} </h5>
+                        <a href="#">edit</a>
+                    </div>
+                    <p class="card-text card-profile-text">{{ tutorial.description}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="card col-lg-4">
+            <div class="card-body card-profile-follow">
+
+            </div>
+        </div>
+
+    </div>
     <h1>Tutorial</h1>
 
     <table class="table">
@@ -21,7 +42,7 @@
             </tr>
             <tr>
                 <th>Picture</th>
-                <td>{{ tutorial.picture }}</td>
+                <td>{{ tutorial.imageName }}</td>
             </tr>
             <tr>
                 <th>Duration</th>
