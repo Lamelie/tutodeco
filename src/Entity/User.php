@@ -399,10 +399,9 @@ class User implements UserInterface
         return $this->slug;
     }
 
-    public function setSlug(?string $firstname, $lastname, $nickname): self
+    public function setSlug(?string $slug): self
     {
-        $slug = new Slugger();
-        $slug->slug($firstname, $lastname, $nickname);
+
         $this->slug = $slug;
 
         return $this;
