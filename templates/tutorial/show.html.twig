@@ -10,58 +10,50 @@
                 <img src="{{ asset('uploads/tutorials/' ~ tutorial.imageName) }}" alt="{{ tutorial.imageName }}" class="img-fluid card-tuto-image">
                 <div class="card-tuto-description">
                     <div class="card-tuto-title">
-                        <h5>{{ tutorial.title }} </h5>
-                        <a href="#">edit</a>
+                        <h5>{{ tutorial.title }} <a href="#">edit</a></h5>
+                        <p>Proposé par {{ tutorial.user }}</p>
+
                     </div>
-                    <p class="card-text card-profile-text">{{ tutorial.description}}</p>
+                    <p class="card-text card-tuto-text">{{ tutorial.description}}</p>
                 </div>
             </div>
         </div>
         <div class="card card-tuto col-lg-4">
-            <div class="card-body">
-
+            <div class="card-body card-tuto-body">
+                <p class="card-tuto-detail">Durée : {{ tutorial.duration }} min</p>
+                <p class="card-tuto-detail">Difficulté : {{ tutorial.level }}</p>
+                <p class="card-tuto-detail">Coût : {{ tutorial.cost }}</p>
             </div>
         </div>
-
     </div>
-    <h1>Tutorial</h1>
+    <div class="row">
+        <div class="card col-lg-6">
+            <h5>Outils</h5>
+            <ul>
+                {% for tool in tutorial.tools %}
+                    <li>{{ tool }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="card col-lg-6">
+            <h5>Matériel</h5>
+            <ul>
+                {% for material in tutorial.materials %}
+                    <li>{{ material }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="card">
+            <h5>Etapes</h5>
+            <ul>
+                {% for step in tutorial.steps %}
+                    <li>{{ step }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ tutorial.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ tutorial.title }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ tutorial.description }}</td>
-            </tr>
-            <tr>
-                <th>Picture</th>
-                <td>{{ tutorial.imageName }}</td>
-            </tr>
-            <tr>
-                <th>Duration</th>
-                <td>{{ tutorial.duration }}</td>
-            </tr>
-            <tr>
-                <th>Created_at</th>
-                <td>{{ tutorial.createdAt ? tutorial.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Validatio</th>
-                <td>{{ tutorial.validation }}</td>
-            </tr>
-            <tr>
-                <th>Fait par</th>
-                <td>{{ tutorial.user }}</td>
-            </tr>
-        </tbody>
-    </table>
+
 
     <a href="{{ path('tutorial_index') }}">back to list</a>
 

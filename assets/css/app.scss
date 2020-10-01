@@ -166,15 +166,36 @@ pour écran de téléphone mobile (moins de 600px)*/
 .card-tuto {
     background-color: transparent;
     border: none;
+    &-body {
+        box-shadow: none;
+    }
+
+    &-detail {
+        background-color: #BBE6E3;
+        padding: 0.2rem 1rem;
+        border-radius: 1rem;
+    }
+
     &-description {
         margin-top: 10rem;
+
     }
     &-title {
         text-align: center;
+        width: 17rem;
+        background-color: rgba(255,255,255, 0.6);
     }
     &-image {
+        width: 20rem;
+        height: 15rem;
+        object-fit: cover;
         position: fixed;
         z-index: -1;
+    }
+    &-text {
+        text-align: center;
+        width: 17rem;
+        background-color: rgba(255,255,255, 0.6);
     }
 }
 
@@ -186,12 +207,10 @@ pour écran de téléphone mobile (moins de 600px)*/
 
         &-body {
             align-items: flex-start;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         }
 
         &-image {
-            height: 15rem;
-            width: 15rem;
-            object-fit : cover;
             margin-right: 1rem;
             position: unset;
             z-index: unset;
@@ -204,6 +223,11 @@ pour écran de téléphone mobile (moins de 600px)*/
         &-title {
             display: flex;
             align-items: baseline;
+            text-align: left;
+            width: unset;
+            height: unset;
+        }
+        &-text {
             text-align: left;
         }
 
