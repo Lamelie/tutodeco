@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="row">
-        <div class="card card-profile col-lg-8" >
+        <div class="card card-border card-profile col-lg-8" >
             <div class="card-body">
                 <div class="card-profile-id">
                     <img src="{{ asset('uploads/users/' ~ user.pictureName) }}" alt="{{ user.pictureName }}" class="img-fluid">
@@ -14,7 +14,7 @@
                 <p class="card-text card-profile-text">{{ user.description}}</p>
             </div>
         </div>
-        <div class="card col-lg-4">
+        <div class="card card-border col-lg-4">
             <div class="card-body card-profile-follow">
                 <a href="#" class="card-profile-subscribe">S'abonner</a>
                 <div>

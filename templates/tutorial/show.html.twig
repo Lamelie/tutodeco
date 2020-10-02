@@ -5,7 +5,7 @@
 {% block body %}
 
     <div class="row">
-        <div class="card card-tuto col-lg-8" >
+        <div class="card card-border card-tuto col-lg-8" >
             <div class="card-body card-tuto-body">
                 <img src="{{ asset('uploads/tutorials/' ~ tutorial.imageName) }}" alt="{{ tutorial.imageName }}" class="img-fluid card-tuto-image">
                 <div class="card-tuto-description">
@@ -18,7 +18,7 @@
                 </div>
             </div>
         </div>
-        <div class="card card-tuto col-lg-4">
+        <div class="card card-border card-tuto col-lg-4">
             <div class="card-body card-tuto-body">
                 <p class="card-tuto-detail">Durée : {{ tutorial.duration }} min</p>
                 <p class="card-tuto-detail">Difficulté : {{ tutorial.level }}</p>
@@ -27,27 +27,33 @@
         </div>
     </div>
     <div class="row">
-        <div class="card col-lg-6">
-            <h5>Outils</h5>
-            <ul>
-                {% for tool in tutorial.tools %}
-                    <li>{{ tool }}</li>
-                {% endfor %}
-            </ul>
+        <div class="card card-border col-lg-6">
+            <div class="card-body">
+                <h5>Outils</h5>
+                <ul>
+                    {% for tool in tutorial.tools %}
+                        <li>{{ tool }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
-        <div class="card col-lg-6">
-            <h5>Matériel</h5>
-            <ul>
-                {% for material in tutorial.materials %}
-                    <li>{{ material }}</li>
-                {% endfor %}
-            </ul>
+        <div class="card card-border col-lg-6">
+            <div class="card-body">
+                <h5>Matériel</h5>
+                <ul>
+                    {% for material in tutorial.materials %}
+                        <li>{{ material }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
-        <div class="card">
+        <div class="card card-border">
             <h5>Etapes</h5>
             <ul>
-                {% for step in tutorial.steps %}
-                    <li>{{ step }}</li>
+                {% for step in steps %}
+                    <div class="card-body">
+                        <li>{{ step.number }} : {{ step.description }}</li>
+                    </div>
                 {% endfor %}
             </ul>
         </div>
