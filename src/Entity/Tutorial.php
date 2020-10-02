@@ -84,7 +84,7 @@ class Tutorial
     private $validation;
 
     /**
-     * @ORM\OneToMany(targetEntity=Step::class, mappedBy="tutorial", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Step::class, mappedBy="tutorial", orphanRemoval=true, cascade={"persist"})
      */
     private $steps;
 
@@ -476,6 +476,10 @@ class Tutorial
         $this->setCreatedAt(new \DateTime());
     }
 
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
 
 
 }

@@ -38,29 +38,12 @@ class TutorialController extends AbstractController
     {
         $tutorial = new Tutorial();
 
-        //fausses données pour l'implémentation du formulaire imbriqué
-        //TODO:supprimer ces fausses données
-        $step1 = new Step();
-        $step1->setNumber(1);
-        $step1->setDescription('step1');
-        $tutorial->getSteps()->add($step1);
-
-        $step2 = new Step();
-        $step2->setNumber(2);
-        $step2->setDescription('step2');
-        $tutorial->getSteps()->add($step2);
-
-        //fin des fausses données
-
-
         $form = $this->createForm(TutorialType::class, $tutorial);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($tutorial);
-            $entityManager->persist($step1);
-            $entityManager->persist($step2);
             $entityManager->flush();
 
             return $this->redirectToRoute('tutorial_index');

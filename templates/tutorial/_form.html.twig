@@ -1,5 +1,13 @@
 <form method="post" enctype="multipart/form-data">
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {{ form_row(form.description) }}
+
+    <ul class="steps" data-prototype="{{ form_widget(form.steps.vars.prototype)|e('html_attr') }}">
+        {% for step in form.steps %}
+            <li>{{ step.description }}</li>
+        {% endfor %}
+    </ul>
+
     <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+
+{{ form_end(form, {'render_rest' : false}) }}

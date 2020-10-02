@@ -16,7 +16,7 @@ class StepType extends AbstractType
             ->add('description')
             //->add('picture_name')
             //->add('video_url')
-            ->add('tutorial')
+            //->add('tutorial')
         ;
     }
 

@@ -26,6 +26,9 @@ class TutorialType extends AbstractType
             ->add('user')
             ->add('steps', CollectionType::class, [
                 'entry_type' => StepType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'by_reference' => false,
             ])
         ;
     }
