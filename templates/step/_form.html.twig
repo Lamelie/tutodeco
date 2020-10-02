@@ -1,0 +1,14 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+
+{{ form_row(form.description) }}
+
+<h3>steps</h3>
+<ul class="tags">
+    {% for step in form.steps %}
+        <li>{{ form_row(step.number) }}</li>
+        <li>{{ form_row(step.description) }}</li>
+    {% endfor %}
+</ul>
+{{ form_end(form) }}

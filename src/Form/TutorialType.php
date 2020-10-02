@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Tutorial;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichImageType;
@@ -23,6 +24,9 @@ class TutorialType extends AbstractType
             ->add('level')
             ->add('cost')
             ->add('user')
+            ->add('steps', CollectionType::class, [
+                'entry_type' => StepType::class,
+            ])
         ;
     }
 

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Step index{% endblock %}
+
+{% block body %}
+    <h1>Step index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Number</th>
+                <th>Description</th>
+                <th>Picture_name</th>
+                <th>Video_url</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for step in steps %}
+            <tr>
+                <td>{{ step.id }}</td>
+                <td>{{ step.number }}</td>
+                <td>{{ step.description }}</td>
+                <td>{{ step.pictureName }}</td>
+                <td>{{ step.videoUrl }}</td>
+                <td>
+                    <a href="{{ path('step_show', {'id': step.id}) }}">show</a>
+                    <a href="{{ path('step_edit', {'id': step.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('step_new') }}">Create new</a>
+{% endblock %}
