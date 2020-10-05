@@ -23,11 +23,11 @@ class TutorialType extends AbstractType
             ->add('tools')
             ->add('level')
             ->add('cost')
-            ->add('user')
             ->add('steps', CollectionType::class, [
                 'entry_type' => StepType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
+                'allow_delete' => true,
                 'by_reference' => false,
             ])
         ;

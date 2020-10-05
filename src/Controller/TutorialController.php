@@ -4,13 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Step;
 use App\Entity\Tutorial;
-use App\Entity\User;
 use App\Form\TutorialType;
 use App\Repository\TutorialRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/tutorial")
@@ -33,6 +33,7 @@ class TutorialController extends AbstractController
 
     /**
      * @Route("/new", name="tutorial_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function new(Request $request): Response
     {
@@ -42,11 +43,16 @@ class TutorialController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            try {
             $entityManager = $this->getDoctrine()->getManager();
+            $tutorial->setUser($this->getUser());
             $entityManager->persist($tutorial);
             $entityManager->flush();
-
             return $this->redirectToRoute('tutorial_index');
+
+            } catch (\Exception $exception) {
+                echo 'Exception reçue : ', $exception->getMessage(), "\n";
+            }
         }
 
         return $this->render('tutorial/new.html.twig', [
@@ -78,9 +84,14 @@ class TutorialController extends AbstractController
         $form = $this->createForm(TutorialType::class, $tutorial);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        //TODO : faire en sorte que les formulaires puissent être édités sans avoir à re uploader une image !!
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $picture = $tutorial->getImageFile();
+            $tutorial->setImageFile($picture);
+            $em->persist($tutorial);
+            $em->flush();
             return $this->redirectToRoute('tutorial_index');
         }
 
