@@ -36,6 +36,7 @@ class StepController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            //TODO: faire en sorte que les numéros d'étapes s'ajoutent automatiquement.
             $entityManager->persist($step);
             $entityManager->flush();
 

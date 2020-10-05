@@ -165,8 +165,6 @@ pour écran de téléphone mobile (moins de 600px)*/
 
 /* PAGE TUTORIEL */
 
-//TODO: supprimer l'ombre portée en vue mobile
-
 .card-tuto {
     background-color: transparent;
     border: none;
@@ -184,11 +182,20 @@ pour écran de téléphone mobile (moins de 600px)*/
         margin-top: 10rem;
 
     }
+    &-list {
+        list-style: none;
+        display: unset;
+    }
+    &-step {
+        padding-left: 0;
+    }
     &-title {
         text-align: center;
         width: 17rem;
-        background-color: rgba(255,255,255, 0.6);
+        background-color: rgba(255,255,255, 0.7);
+        padding: 5px;
     }
+
     &-image {
         width: 20rem;
         height: 15rem;
@@ -199,7 +206,9 @@ pour écran de téléphone mobile (moins de 600px)*/
     &-text {
         text-align: center;
         width: 17rem;
-        background-color: rgba(255,255,255, 0.6);
+        background-color: rgba(255,255,255, 0.7);
+        padding: 5px;
+        margin-top: 5px;
     }
 }
 

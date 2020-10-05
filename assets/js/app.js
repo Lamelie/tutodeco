@@ -17,7 +17,7 @@ import $ from 'jquery';
 let $collectionHolder;
 
 // setup an "add a step" link
-const $addStepButton = $('<button type="button" class="add_step_link">Ajouter une étape</button>');
+const $addStepButton = $('<button type="button" class="add_step_link btn-success">Ajouter une étape</button>');
 const $newLinkLi = $('<li></li>').append($addStepButton);
 
 $(document).ready(function() {

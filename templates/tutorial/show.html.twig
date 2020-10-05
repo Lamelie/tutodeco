@@ -11,7 +11,7 @@
                 <div class="card-tuto-description">
                     <div class="card-tuto-title">
                         <h5>{{ tutorial.title }} <a href="#">edit</a></h5>
-                        <p>Proposé par {{ tutorial.user }}</p>
+                        <p class="card-text">Proposé par {{ tutorial.user }}</p>
 
                     </div>
                     <p class="card-text card-tuto-text">{{ tutorial.description}}</p>
@@ -28,7 +28,7 @@
     </div>
     <div class="row">
         <div class="card card-border col-lg-6">
-            <div class="card-body">
+            <div class="card-body card-tuto-list">
                 <h5>Outils</h5>
                 <ul>
                     {% for tool in tutorial.tools %}
@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="card card-border col-lg-6">
-            <div class="card-body">
+            <div class="card-body card-tuto-list">
                 <h5>Matériel</h5>
                 <ul>
                     {% for material in tutorial.materials %}
@@ -47,16 +47,13 @@
                 </ul>
             </div>
         </div>
-        <div class="card card-border">
-            <h5>Etapes</h5>
-            <ul>
+            <ul class="card-tuto-step">
                 {% for step in steps %}
-                    <div class="card-body">
-                        <li>{{ step.number }} : {{ step.description }}</li>
+                    <div class="card card-border">
+                        <li class="card-body">Etape {{ step.number }} : {{ step.description }}</li>
                     </div>
                 {% endfor %}
             </ul>
-        </div>
     </div>
 
 
