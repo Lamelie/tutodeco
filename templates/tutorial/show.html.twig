@@ -10,19 +10,25 @@
                 <img src="{{ asset('uploads/tutorials/' ~ tutorial.imageName) }}" alt="{{ tutorial.imageName }}" class="img-fluid card-tuto-image">
                 <div class="card-tuto-description">
                     <div class="card-tuto-title">
-                        <h5>{{ tutorial.title }} <a href="#">edit</a></h5>
-                        <p class="card-text">Proposé par {{ tutorial.user }}</p>
-
+                        <h2>{{ tutorial.title }} </h2>
+                        <a href="#"><i class="fas fa-edit"></i></a>
                     </div>
+                    <p class="card-text card-tuto-text">Proposé par
+                        {% if app.user == tutorial.user %}
+                        vous.
+                        {% else %}
+                        <a href="{{ path('user_show', {'slug': tutorial.user.slug}) }}">{{ tutorial.user }}</a>
+                        {% endif %}
+                    </p>
                     <p class="card-text card-tuto-text">{{ tutorial.description}}</p>
                 </div>
             </div>
         </div>
         <div class="card card-border card-tuto col-lg-4">
             <div class="card-body card-tuto-body">
-                <p class="card-tuto-detail">Durée : {{ tutorial.duration }} min</p>
-                <p class="card-tuto-detail">Difficulté : {{ tutorial.level }}</p>
-                <p class="card-tuto-detail">Coût : {{ tutorial.cost }}</p>
+                <p class="card-tuto-detail"><i class="fas fa-hourglass-half"></i> {{ tutorial.duration }} min</p>
+                <p class="card-tuto-detail"><i class="fas fa-tools"></i> {{ tutorial.level }}</p>
+                <p class="card-tuto-detail"><i class="fas fa-euro-sign"></i> {{ tutorial.cost }}</p>
             </div>
         </div>
     </div>
@@ -50,7 +56,7 @@
             <ul class="card-tuto-step">
                 {% for step in steps %}
                     <div class="card card-border">
-                        <li class="card-body">Etape {{ step.number }} : {{ step.description }}</li>
+                        <li class="card-body">Etape {{ loop.index }} : {{ step.description }}</li>
                     </div>
                 {% endfor %}
             </ul>

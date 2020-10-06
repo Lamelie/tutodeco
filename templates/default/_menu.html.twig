@@ -17,6 +17,11 @@
             <a href="{{ path('app_login') }}">Se connecter</a>
             {% endif %}
         </li>
+        <li>
+            {% if app.user %}
+            <a href="{{ path('tutorial_new') }}">Créer un tuto</a>
+            {% endif %}
+        </li>
     </ul>
 
 </nav>
