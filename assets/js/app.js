@@ -72,7 +72,7 @@ function addStepForm($collectionHolder, $newLinkLi) {
 }
 
 function addStepFormDeleteLink($stepFormLi) {
-    var $removeFormButton = $('<button type="button">Supprimer cette étape</button>');
+    const $removeFormButton = $('<button type="button">Supprimer cette étape</button>');
     $stepFormLi.append($removeFormButton);
 
     $removeFormButton.on('click', function(e) {
@@ -81,4 +81,17 @@ function addStepFormDeleteLink($stepFormLi) {
     });
 }
 
-console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+$(document).ready(function() {
+    const $tutos = $('.card-tutolist-body');
+
+    $tutos.on('mouseenter', function () {
+        const id = $(this).attr("id");
+        $('#seemore-button-' + id).show()
+
+    });
+
+    $tutos.on('mouseleave', function () {
+        const id = $(this).attr("id");
+        $('#seemore-button-' + id).hide()
+    });
+})

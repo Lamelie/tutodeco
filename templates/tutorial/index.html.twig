@@ -1,47 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tutorial index{% endblock %}
+{% block title %}Les tutos{% endblock %}
 
 {% block body %}
-    <h1>Tutorial index</h1>
+    <h1>Tous les tutos</h1>
+    <div class="row">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Picture</th>
-                <th>Duration</th>
-                <th>Created_at</th>
-                <th>Fait par</th>
-                <th>Validation</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
         {% for tutorial in tutorials %}
-            <tr>
-                <td>{{ tutorial.id }}</td>
-                <td>{{ tutorial.title }}</td>
-                <td>{{ tutorial.description }}</td>
-                <td>{{ tutorial.imageName }}</td>
-                <td>{{ tutorial.duration }}</td>
-                <td>{{ tutorial.createdAt ? tutorial.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ tutorial.user }}</td>
-                <td>{{ tutorial.validation }}</td>
-                <td>
-                    <a href="{{ path('tutorial_show', {'id': tutorial.id}) }}">show</a>
-                    <a href="{{ path('tutorial_edit', {'id': tutorial.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
+                <div class="card card-border card-tuto col-lg-4" >
+                    <div class="card-body card-tutolist-body" id="{{ tutorial.id }}">
+                        <div class="card-tuto-body">
+                            <img src="{{ asset('uploads/tutorials/' ~ tutorial.imageName) }}" alt="{{ tutorial.imageName }}" class="img-fluid card-tuto-image card-tutolist-image">
+                            <a href="{{ path('tutorial_show', {'id': tutorial.id}) }}" class="btn seemore-button tutodeco-btn" id="seemore-button-{{ tutorial.id }}" style="display: none">Voir plus</a>
+                            <div>
+                                <div class="card-tuto-title">
+                                    <h3 class="card-tuto-titletext">{{ tutorial.title }}
+                                    </h3>
+                                    {% if app.user == tutorial.user %}<a href="{{ path('tutorial_edit', {'id' : tutorial.id}) }}"><i class="fas fa-edit card-tuto-edit"></i></a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         {% endfor %}
-        </tbody>
-    </table>
+    </div>
 
-    <a href="{{ path('tutorial_new') }}">Create new</a>
 {% endblock %}

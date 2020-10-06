@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ user.firstName }} {{ user.lastName }}{% endblock %}
+{% block title %}Tuto-Déco {{ user.firstName }} {{ user.lastName }}{% endblock %}
 
 {% block body %}
     <div class="row">
@@ -8,8 +8,11 @@
             <div class="card-body">
                 <div class="card-profile-id">
                     <img src="{{ asset('uploads/users/' ~ user.pictureName) }}" alt="{{ user.pictureName }}" class="img-fluid">
-                    <h5 class="card-title">{% if user.nickname %}{{ user.nickname }} {% else %}{{ user.firstName }} {{ user.lastName }} {% endif %}</h5>
-                    {% if app.user == user %}<a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>{% endif %}
+                    <h5 class="card-title">
+                        {% if user.nickname %}{{ user.nickname }} {% else %}{{ user.firstName }} {{ user.lastName }}
+                        {% endif %}
+                    </h5>
+                    {% if app.user == user %}<a href="{{ path('user_edit', {'id': user.id}) }}"><i class="fas fa-edit"></i></a>{% endif %}
                 </div>
                 <p class="card-text card-profile-text">{{ user.description}}</p>
             </div>
@@ -23,7 +26,22 @@
                 </div>
             </div>
         </div>
-
+        {% for tutorial in user.tutorials %}
+            <div class="card card-border card-tuto col-12" >
+                <div class="card-body card-tuto-body">
+                    <img src="{{ asset('uploads/tutorials/' ~ tutorial.imageName) }}" alt="{{ tutorial.imageName }}" class="img-fluid card-tuto-image">
+                    <div class="card-tuto-description">
+                        <div class="card-tuto-title">
+                            <h5>{{ tutorial.title }}
+                                {% if app.user == tutorial.user %}<a href="{{ path('tutorial_edit', {'id' : tutorial.id}) }}"><i class="fas fa-edit"></i></a>
+                                {% endif %}
+                            </h5>
+                        </div>
+                        <p class="card-text card-tuto-text">{{ tutorial.description}}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 
 
