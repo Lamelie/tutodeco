@@ -7,22 +7,32 @@
     <div class="row">
 
         {% for tutorial in tutorials %}
-                <div class="card card-border card-tuto col-lg-4" >
-                    <div class="card-body card-tutolist-body" id="{{ tutorial.id }}">
-                        <div class="card-tuto-body">
-                            <img src="{{ asset('uploads/tutorials/' ~ tutorial.imageName) }}" alt="{{ tutorial.imageName }}" class="img-fluid card-tuto-image card-tutolist-image">
-                            <a href="{{ path('tutorial_show', {'id': tutorial.id}) }}" class="btn seemore-button tutodeco-btn" id="seemore-button-{{ tutorial.id }}" style="display: none">Voir plus</a>
+            <div class="col-lg-4">
+                <div class="card card-tuto card-tuto-list" >
+                    <div class="card-body card-tutolist-body">
+                        <div class="card-tuto-body card-border">
                             <div>
                                 <div class="card-tuto-title">
-                                    <h3 class="card-tuto-titletext">{{ tutorial.title }}
+                                    <h3 class="card-tuto-title-text">{{ tutorial.title }}
                                     </h3>
                                     {% if app.user == tutorial.user %}<a href="{{ path('tutorial_edit', {'id' : tutorial.id}) }}"><i class="fas fa-edit card-tuto-edit"></i></a>
                                     {% endif %}
                                 </div>
                             </div>
+                            <img id="{{ tutorial.id }}" src="{{ asset('uploads/tutorials/' ~ tutorial.imageName) }}" alt="{{ tutorial.imageName }}" class="img-fluid card-tuto-image card-tuto-list-image">
+                            <a href="{{ path('tutorial_show', {'id': tutorial.id}) }}" class="btn seemore-button tutodeco-btn" id="seemore-button-{{ tutorial.id }}" style="display: none">Voir plus</a>
+                            <div class="card-tuto-picto">
+                                <div>
+                                    <i class="fas fa-clipboard-list"></i>
+                                </div>
+                                <div>
+                                    <i class="fas fa-check-square"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
         {% endfor %}
     </div>
 

@@ -82,7 +82,7 @@ function addStepFormDeleteLink($stepFormLi) {
 }
 
 $(document).ready(function() {
-    const $tutos = $('.card-tutolist-body');
+    const $tutos = $('.card-tuto-list-image');
 
     $tutos.on('mouseenter', function () {
         const id = $(this).attr("id");

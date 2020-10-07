@@ -4,44 +4,58 @@
 
 {% block body %}
     <div class="row">
-        <div class="card card-border card-profile col-lg-8" >
-            <div class="card-body">
-                <div class="card-profile-id">
-                    <img src="{{ asset('uploads/users/' ~ user.pictureName) }}" alt="{{ user.pictureName }}" class="img-fluid">
-                    <h5 class="card-title">
-                        {% if user.nickname %}{{ user.nickname }} {% else %}{{ user.firstName }} {{ user.lastName }}
-                        {% endif %}
-                    </h5>
-                    {% if app.user == user %}<a href="{{ path('user_edit', {'id': user.id}) }}"><i class="fas fa-edit"></i></a>{% endif %}
-                </div>
-                <p class="card-text card-profile-text">{{ user.description}}</p>
-            </div>
-        </div>
-        <div class="card card-border col-lg-4">
-            <div class="card-body card-profile-follow">
-                <a href="#" class="card-profile-subscribe">S'abonner</a>
-                <div>
-                    <a href="#" class="card-link">{{ user.userTos.count }} abonnements</a>
-                    <a href="#" class="card-link">{{ user.userFroms.count }} abonnés</a>
+        <div class="col-lg-8">
+            <div class="card card-border card-profile" >
+                <div class="card-body">
+                    <div class="card-profile-id">
+                        <img src="{{ asset('uploads/users/' ~ user.pictureName) }}" alt="{{ user.pictureName }}" class="img-fluid">
+                        <h5 class="card-title">
+                            {% if user.nickname %}{{ user.nickname }} {% else %}{{ user.firstName }} {{ user.lastName }}
+                            {% endif %}
+                        </h5>
+                        {% if app.user == user %}<a href="{{ path('user_edit', {'id': user.id}) }}"><i class="fas fa-edit"></i></a>{% endif %}
+                    </div>
+                    <p class="card-text card-profile-text">{{ user.description}}</p>
                 </div>
             </div>
         </div>
-        {% for tutorial in user.tutorials %}
-            <div class="card card-border card-tuto col-12" >
-                <div class="card-body card-tuto-body">
-                    <img src="{{ asset('uploads/tutorials/' ~ tutorial.imageName) }}" alt="{{ tutorial.imageName }}" class="img-fluid card-tuto-image">
-                    <div class="card-tuto-description">
-                        <div class="card-tuto-title">
-                            <h5>{{ tutorial.title }}
-                                {% if app.user == tutorial.user %}<a href="{{ path('tutorial_edit', {'id' : tutorial.id}) }}"><i class="fas fa-edit"></i></a>
-                                {% endif %}
-                            </h5>
-                        </div>
-                        <p class="card-text card-tuto-text">{{ tutorial.description}}</p>
+        <div class="col-lg-4">
+            <div class="card card-border">
+                <div class="card-body card-profile-follow">
+                    <a href="#" class="card-profile-subscribe">S'abonner</a>
+                    <div>
+                        <a href="#" class="card-link">{{ user.userTos.count }} abonnements</a>
+                        <a href="#" class="card-link">{{ user.userFroms.count }} abonnés</a>
                     </div>
                 </div>
             </div>
-        {% endfor %}
+        </div>
+            {% for tutorial in user.tutorials %}
+                <div class="col-lg-4">
+                    <div class="card card-tuto" >
+                        <div class="card-body card-tutolist-body" >
+                            <div class="card-tuto-body card-border">
+                                <div class="card-tuto-title">
+                                    <h5 class="card-tuto-titletext">{{ tutorial.title }}
+                                        {% if app.user == tutorial.user %}<a href="{{ path('tutorial_edit', {'id' : tutorial.id}) }}"><i class="fas fa-edit"></i></a>
+                                        {% endif %}
+                                    </h5>
+                                </div>
+                                <img id="{{ tutorial.id }}" src="{{ asset('uploads/tutorials/' ~ tutorial.imageName) }}" alt="{{ tutorial.imageName }}" class="img-fluid card-tuto-list-image">
+                                <a href="{{ path('tutorial_show', {'id': tutorial.id}) }}" class="btn seemore-button tutodeco-btn" id="seemore-button-{{ tutorial.id }}" style="display: none;">Voir plus</a>
+                                <div class="card-tuto-picto">
+                                    <div>
+                                        <i class="fas fa-clipboard-list"></i>
+                                    </div>
+                                    <div>
+                                        <i class="fas fa-check-square"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
     </div>
 
 

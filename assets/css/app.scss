@@ -9,6 +9,17 @@ body {
     background-color: #E5E5E5;
 }
 
+.card {
+    border: none;
+    &-body {
+        padding: 0;
+    }
+}
+
+.tuto-background {
+    background-color: #E5E5E5;
+}
+
 .tutodeco-btn {
     background-color: #6EB5B1;
     border: none;
@@ -17,7 +28,6 @@ body {
     color: white;
     &:hover, &:active {
         background-color: #BBE6E3;
-        border: none;
     }
     &:focus {
         box-shadow: 0 0 0 0.2rem white;
@@ -57,11 +67,6 @@ pour écran de téléphone mobile (moins de 600px)*/
     }
 }
 
-/* pour tablettes en mode portrait et grands téléphones (600px et plus) */
-@media only screen and (min-width: 576px) {
-
-}
-
 /* pour tablettes en mode paysage (768px et plus) */
 @media only screen and (min-width: 768px) {
 
@@ -88,33 +93,32 @@ pour écran de téléphone mobile (moins de 600px)*/
     }
 }
 
-/* pour écrans d'ordinateur (992px et plus) */
-@media only screen and (min-width: 992px) {
-
-}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-
-}
-
 /* PAGE DÉCORATEUR */
 
 .card-border {
     border-radius: 0;
-    border-top: 10px solid #E5E5E5;
-    border-bottom: 10px solid #E5E5E5;
     padding: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
-.card-body {
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
+.card-profile {
+    &-subscribe {
+        background-color: #BBE6E3;
+        padding: 0.2rem 1rem;
+        border-radius: 1rem;
+    }
+    &-follow {
+        padding: 5px;
+    }
 }
 
-.card-profile-subscribe {
-    background-color: #BBE6E3;
-    padding: 0.2rem 1rem;
-    border-radius: 1rem;
+.card-tuto-list-image {
+    width: 20rem;
+    height: 15rem;
+    object-fit: cover;
+    position: unset;
+    z-index: unset;
 }
 
 @media only screen  {
@@ -122,7 +126,6 @@ pour écran de téléphone mobile (moins de 600px)*/
     .card-body {
         flex: 1 1 auto;
         min-height: 1px;
-        padding: 1.25rem;
         align-items: center;
         display: flex;
         flex-direction: column;
@@ -132,23 +135,17 @@ pour écran de téléphone mobile (moins de 600px)*/
         flex-direction: column;
         align-items: center;
     }
-
     .card-profile-text {
         text-align: center;
     }
-}
-
-/* pour tablettes en mode portrait et grands téléphones (600px et plus) */
-@media only screen and (min-width: 576px) {
-
 }
 
 /* pour tablettes en mode paysage (768px et plus) */
 @media only screen and (min-width: 768px) {
     .card-border {
         border-radius: 0;
-        border: 10px solid #E5E5E5;
         padding: 0;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     }
     .container {
         padding-left: 15px;
@@ -171,24 +168,11 @@ pour écran de téléphone mobile (moins de 600px)*/
     }
 }
 
-/* pour écrans d'ordinateur (992px et plus) */
-@media only screen and (min-width: 992px) {
-
-}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-
-}
-
 /* PAGE TUTORIEL */
 
 .card-tuto {
     background-color: transparent;
     border: none;
-    &-body {
-        box-shadow: none;
-    }
 
     &-detail {
         background-color: #BBE6E3;
@@ -198,60 +182,79 @@ pour écran de téléphone mobile (moins de 600px)*/
 
     &-description {
         margin-top: 10rem;
-
+        width: 20rem;
     }
     &-edit {
         margin: 2px;
     }
 
-    &-list {
-        list-style: none;
-        display: unset;
-    }
-    &-step {
-        padding-left: 0;
-    }
-    &-title {
-        text-align: center;
-        width: 18rem;
-        background-color: rgba(255,255,255, 0.7);
-        padding: 5px;
-        &text {
-            font-size: 1rem;
-        }
-    }
-
     &-image {
-        width: 18rem;
+        width: 20rem;
         height: 15rem;
         object-fit: cover;
         position: fixed;
         z-index: -1;
     }
+    &-list {
+        list-style: none;
+        display: unset;
+        &-image {
+            position: relative;
+            z-index: unset;
+        }
+    }
+
+    &-picto {
+        background-color: white;
+        display: flex;
+        justify-content: space-around;
+        font-size: 2rem;
+    }
+    &-step {
+        padding-left: 0;
+        &:last-child {
+            margin-bottom: 25px;
+        }
+    }
+    &-title {
+        text-align: center;
+        width: 20rem;
+        background-color: rgba(255,255,255, 0.7);
+        padding: 5px;
+        &-text {
+            font-size: 1.5rem;
+        }
+    }
     &-text {
         text-align: center;
-        width: 18rem;
+        width: 20rem;
         background-color: rgba(255,255,255, 0.7);
         padding: 5px;
         margin-top: 5px;
     }
-
-    &list-image {
-        position: unset;
-    }
-
+}
+.seemore-button {
+    position: absolute;
+    right: 40%;
+    bottom: 50%;
 }
 
 /* pour tablettes en mode paysage (768px et plus) */
 @media only screen and (min-width: 768px) {
     .card-tuto {
-        background-color: white;
-        border: 10px solid #E5E5E5;
-
         &-body {
             align-items: flex-start;
-            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            background-color: white;
+            &-details {
+                display: flex;
+                flex-direction: column;
+            }
+            &-step {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
+
         &list-body {
             align-items: center;
             flex-direction: column;
@@ -277,12 +280,13 @@ pour écran de téléphone mobile (moins de 600px)*/
             text-align: left;
             width: 100%;
         }
+        &-step {
+            &:last-child {
+                margin-bottom: unset;
+            }
+        }
 
     }
-    .seemore-button {
-        position: absolute;
-        right: 40%;
-        bottom: 50%;
-    }
+
 }
 
