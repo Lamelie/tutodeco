@@ -108,4 +108,21 @@ class UserTutorial
 
         return $this;
     }
+
+    /**
+     *
+     * Permet de savoir si le tutoriel a été fait par l'utilisateur ou pas
+     *
+     * @param User $user
+     * @return boolean
+     */
+    public function isDoneByUser (User $user) : bool
+    {
+
+            if ($this->done and $this->getUser() === $user){
+                return true;
+            } else {
+                return false;
+            }
+    }
 }

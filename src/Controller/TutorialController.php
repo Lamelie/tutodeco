@@ -4,8 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Step;
 use App\Entity\Tutorial;
+use App\Entity\UserTutorial;
 use App\Form\TutorialType;
 use App\Repository\TutorialRepository;
+use App\Repository\UserTutorialRepository;
+use ContainerAKAPqlD\getUserTutorialRepositoryService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,17 +20,27 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  */
 class TutorialController extends AbstractController
 {
+    //TODO: faire affichage de l'index en version mobile (lien sur l'image, correction de l'ombre portée)
     /**
      * @Route("/", name="tutorial_index", methods={"GET"})
      */
     public function index(TutorialRepository $tutorialRepository): Response
     {
         $em = $this->getDoctrine();
+
         $tutorials = $tutorialRepository->findAll();
-        //$users = $em->getRepository(User::class)->findAll();
+        $userTutorials = $em->getRepository(UserTutorial::class)->findAll();
+        /**$query = $tutorialRepository->createQueryBuilder('g')
+            ->select('todo')
+            ->leftJoin('g.userTutorial', 'todo', 'WITH', 'todo.id = ')**/
+        $nbDone = 0;
+        //TODO : faire une query propre pour le nombre de "done" plutôt que ce soit calculé dans le template twig
+
 
         return $this->render('tutorial/index.html.twig', [
             'tutorials' => $tutorials,
+            'userTutorials' => $userTutorials,
+            'nbDone' => $nbDone
         ]);
     }
 

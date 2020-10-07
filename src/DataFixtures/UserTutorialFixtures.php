@@ -20,6 +20,14 @@ class UserTutorialFixtures extends Fixture implements DependentFixtureInterface
         $userTuto->setTodo(0);
         $manager->persist($userTuto);
 
+        $userTuto2 = new UserTutorial();
+        $userTuto2->setTutorial($this->getReference("tuto1"));
+        $userTuto2->setUser($this->getReference("ethel"));
+        $userTuto2->setRate(5);
+        $userTuto2->setDone(1);
+        $userTuto2->setTodo(0);
+        $manager->persist($userTuto2);
+
         $manager->flush();
     }
 
