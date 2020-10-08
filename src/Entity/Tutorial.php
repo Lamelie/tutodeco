@@ -470,6 +470,35 @@ class Tutorial
     }
 
     /**
+     * Fonction pour récupérer le nombre de "done" pour chaque tutoriel
+     * @return int
+     */
+    public function getNbDone(): int
+    {
+        return array_reduce($this->getUserTutorials()->toArray(), function($carry, $userTutorial) {
+            /** @var UserTutorial $userTutorial */
+            return $carry + ($userTutorial->getDone() ? 1 : 0);
+        }, 0);
+    }
+
+    /**
+     *
+     * Permet de savoir si le tutoriel a été fait par l'utilisateur ou pas
+     *
+     * @param User $user
+     * @return boolean
+     */
+    public function isDoneByUser (User $user) : bool
+    {
+        $userTutorials = $this->getUserTutorials();
+        foreach ($userTutorials as $userTutorial) {
+            if ($userTutorial->getUser() === $user and $userTutorial->getDone() == 1) {
+                return true;
+            }
+        } return false;
+    }
+
+    /**
      * @ORM\PrePersist()
      */
     public function prePersist() {
