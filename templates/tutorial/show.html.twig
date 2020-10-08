@@ -44,8 +44,10 @@
     <div class="row tuto-background">
         <div class="col-lg-6">
             <div class="card card-border">
+                <div class="card-title card-tuto-title">
+                    <h5>Outils</h5>
+                </div>
                 <div class="card-body card-tuto-list">
-                    <h5 class="card-tuto-text">Outils</h5>
                     <ul>
                         {% for tool in tutorial.tools %}
                             <li>{{ tool }}</li>
@@ -56,8 +58,10 @@
         </div>
         <div class="col-lg-6">
             <div class="card card-border">
+                <div class="card-title card-tuto-title">
+                    <h5>Matériel</h5>
+                </div>
                 <div class="card-body card-tuto-list">
-                    <h5 class="card-tuto-text">Matériel</h5>
                     <ul>
                         {% for material in tutorial.materials %}
                             <li>{{ material }}</li>
@@ -70,8 +74,10 @@
             <ul class="card-tuto-step">
                 {% for step in steps %}
                     <div class="card card-border">
+                        <div class="card-title card-tuto-title">
+                            <h5>Etape {{ loop.index }}</h5>
+                        </div>
                         <li class="card-body card-tuto-body-step">
-                            <h5 class="card-tuto-text">Etape {{ loop.index }}</h5>
                             <p class="card-tuto-text">{{ step.description }}</p>
                         </li>
                     </div>

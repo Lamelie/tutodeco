@@ -5,6 +5,8 @@
     $font-family-base : "Ropa Sans", "Helvetica Neue", sans-serif;
 }
 
+
+
 body {
     background-color: #E5E5E5;
 }
@@ -100,6 +102,7 @@ pour écran de téléphone mobile (moins de 600px)*/
     padding: 0;
     margin-top: 10px;
     margin-bottom: 10px;
+    width: 20rem;
 }
 
 .card-profile {
@@ -146,6 +149,7 @@ pour écran de téléphone mobile (moins de 600px)*/
         border-radius: 0;
         padding: 0;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        width: unset;
     }
     .container {
         padding-left: 15px;
@@ -170,6 +174,16 @@ pour écran de téléphone mobile (moins de 600px)*/
 
 /* PAGE TUTORIEL */
 
+.tuto-container {
+    background-color: white;
+    & h1 {
+        background-color: #6EB5B1;
+        color: white;
+        padding-left: 5px;
+        text-align: center;
+    }
+}
+
 .card-tuto {
     background-color: transparent;
     border: none;
@@ -181,7 +195,7 @@ pour écran de téléphone mobile (moins de 600px)*/
     }
 
     &-description {
-        margin-top: 10rem;
+        margin-top: 15rem;
         width: 20rem;
     }
     &-edit {
@@ -220,9 +234,16 @@ pour écran de téléphone mobile (moins de 600px)*/
         text-align: center;
         width: 20rem;
         background-color: rgba(255,255,255, 0.7);
-        padding: 5px;
         &-text {
             font-size: 1.5rem;
+            padding: 5px;
+
+        }
+        & h5 {
+            background-color: #6EB5B1 ;
+            color: white;
+            width: 100%;
+            padding: 5px;
         }
     }
     &-text {
@@ -241,6 +262,13 @@ pour écran de téléphone mobile (moins de 600px)*/
 
 /* pour tablettes en mode paysage (768px et plus) */
 @media only screen and (min-width: 768px) {
+
+    .tuto-container {
+        & h1 {
+            text-align: left;
+        }
+    }
+
     .card-tuto {
         &-body {
             align-items: flex-start;

@@ -3,60 +3,58 @@
 {% block title %}Les tutos{% endblock %}
 
 {% block body %}
-    <h1>Tous les tutos</h1>
-    <div class="row">
+    <div class="tuto-container">
+        <h1>Tous les tutos</h1>
+        <div class="row">
 
-        {% for tutorial in tutorials %}
-            <div class="col-lg-4">
-                <div class="card card-tuto card-tuto-list" >
-                    <div class="card-body card-tutolist-body">
-                        <div class="card-tuto-body card-border">
-                            <div>
-                                <div class="card-tuto-title">
-                                    <h3 class="card-tuto-title-text">{{ tutorial.title }}
-                                    </h3>
-                                    {% if app.user == tutorial.user %}<a href="{{ path('tutorial_edit', {'id' : tutorial.id}) }}"><i class="fas fa-edit card-tuto-edit"></i></a>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            <img id="{{ tutorial.id }}" src="{{ asset('uploads/tutorials/' ~ tutorial.imageName) }}" alt="{{ tutorial.imageName }}" class="img-fluid card-tuto-image card-tuto-list-image">
-                            <a href="{{ path('tutorial_show', {'id': tutorial.id}) }}" class="btn seemore-button tutodeco-btn" id="seemore-button-{{ tutorial.id }}" style="display: none">Voir plus</a>
-                            <div class="card-tuto-picto">
+            {% for tutorial in tutorials %}
+                <div class="col-lg-4">
+                    <div class="card card-tuto card-tuto-list" >
+                        <div class="card-body card-tutolist-body">
+                            <div class="card-tuto-body card-border">
                                 <div>
-                                    <a href="#" class="btn btn-link">
-                                        <i class="fas fa-clipboard-list card-tuto-picto"></i>
-                                    </a>
-                                </div>
-                                <div>
-                                    <a href="#" class="btn btn-link">
-                                        <span class="js-tuto-done">
-                                            {% for usertuto in tutorial.userTutorials %}
-                                                {% set nbDone = nbDone + usertuto.done  %}
-                                            {% endfor %}
-                                            {{ nbDone }}
-                                        </span>
-                                        {% if app.user %}
-                                            {% for userTutorial in userTutorials %}
-                                                {% if userTutorial.getTutorial() == tutorial and userTutorial.isDoneByUser(app.user)%}
-                                                    <i class="fas fa-check-square card-tuto-picto"></i>
-                                                    <span class="js-label small text-muted">Fait</span>
-                                                {% endif %}
-                                            {% endfor %}
-                                        {% else %}
-                                            <i class="far fa-check-square card-tuto-picto"></i>
+                                    <div class="card-tuto-title">
+                                        <h3 class="card-tuto-title-text">{{ tutorial.title }}
+                                        </h3>
+                                        {% if app.user == tutorial.user %}<a href="{{ path('tutorial_edit', {'id' : tutorial.id}) }}"><i class="fas fa-edit card-tuto-edit"></i></a>
                                         {% endif %}
-
-                                    </a>
+                                    </div>
+                                </div>
+                                <img id="{{ tutorial.id }}" src="{{ asset('uploads/tutorials/' ~ tutorial.imageName) }}" alt="{{ tutorial.imageName }}" class="img-fluid card-tuto-image card-tuto-list-image">
+                                <a href="{{ path('tutorial_show', {'id': tutorial.id}) }}" class="btn seemore-button tutodeco-btn" id="seemore-button-{{ tutorial.id }}" style="display: none">Voir plus</a>
+                                <div class="card-tuto-picto">
+                                    <div>
+                                        <a href="#" class="btn btn-link">
+                                            <i class="fas fa-clipboard-list card-tuto-picto"></i>
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <a href="/" class="btn btn-link">
+                                            <span class="js-tuto-done">
+                                                {% for usertuto in tutorial.userTutorials %}
+                                                    {% set nbDone = nbDone + usertuto.done  %}
+                                                {% endfor %}
+                                                {{ nbDone }}
+                                            </span>
+                                            {% if app.user %}
+                                                {% for userTutorial in userTutorials %}
+                                                    {% if userTutorial.getTutorial() == tutorial and userTutorial.isDoneByUser(app.user)%}
+                                                        <i class="fas fa-check-square card-tuto-picto"></i>
+                                                        <span class="js-label small text-muted">Fait</span>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% else %}
+                                                <i class="far fa-check-square card-tuto-picto"></i>
+                                            {% endif %}
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
-
-
-
+            {% endfor %}
+        </div>
     </div>
 
 {% endblock %}
