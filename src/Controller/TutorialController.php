@@ -8,7 +8,7 @@ use App\Entity\UserTutorial;
 use App\Form\TutorialType;
 use App\Repository\TutorialRepository;
 use App\Repository\UserTutorialRepository;
-use ContainerAKAPqlD\getUserTutorialRepositoryService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,17 +30,10 @@ class TutorialController extends AbstractController
 
         $tutorials = $tutorialRepository->findAll();
         $userTutorials = $em->getRepository(UserTutorial::class)->findAll();
-        /**$query = $tutorialRepository->createQueryBuilder('g')
-            ->select('todo')
-            ->leftJoin('g.userTutorial', 'todo', 'WITH', 'todo.id = ')**/
-        $nbDone = 0;
-        //TODO : faire une query propre pour le nombre de "done" plutôt que ce soit calculé dans le template twig
-
 
         return $this->render('tutorial/index.html.twig', [
             'tutorials' => $tutorials,
             'userTutorials' => $userTutorials,
-            'nbDone' => $nbDone
         ]);
     }
 
@@ -90,6 +83,60 @@ class TutorialController extends AbstractController
     }
 
     /**
+     * Permet de marquer comme fait ou pas fait un tutoriel
+     *
+     * @Route("/{id}/done", name="tutorial_done")
+     *
+     * @param Tutorial $tutorial
+     * @param EntityManagerInterface $manager
+     * @param UserTutorialRepository $userTutorialRepository
+     * @return Response
+     */
+    public function done(Tutorial $tutorial, EntityManagerInterface $manager, UserTutorialRepository $userTutorialRepository): Response
+    {
+        $user = $this->getUser();
+
+        if(!$user) return $this->json([
+            'code' => 403,
+            'message' => "unauthorized"
+        ], 403);
+
+        if($tutorial->isDoneByUser($user)){
+            $done = $userTutorialRepository->findOneBy([
+                'tutorial'=> $tutorial,
+                'user'=>$user,
+                'done' => 1,
+            ]);
+            $manager->remove($done);
+            $manager->flush();
+
+            return $this->json([
+                'code' => 200,
+                'message' => "done supprimé",
+                'dones' => $userTutorialRepository->count([
+                        'tutorial'=> $tutorial,
+                        'done' => 1
+                    ])
+            ], 200);
+        }
+        $done = new UserTutorial();
+        $done->setTutorial($tutorial)
+            ->setUser($user)
+            ->setDone(1);
+        $manager->persist($done);
+        $manager->flush();
+
+            return $this->json([
+                "code"=>200,
+                "message"=>"done ajouté",
+                'dones' => $userTutorialRepository->count([
+                    'tutorial'=> $tutorial,
+                    'done' => 1
+                    ])
+            ], 200);
+    }
+
+    /**
      * @Route("/{id}/edit", name="tutorial_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Tutorial $tutorial): Response
@@ -127,4 +174,8 @@ class TutorialController extends AbstractController
 
         return $this->redirectToRoute('tutorial_index');
     }
+
+
+
+
 }

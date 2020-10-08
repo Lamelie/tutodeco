@@ -5,7 +5,6 @@
  * (and its CSS file) in your base layout (base.html.twig).
  */
 require('bootstrap');
-require('jquery');
 
 // any CSS you import will output into a single css file (app.css in this case)
 import '../css/app.scss';
@@ -13,6 +12,7 @@ import '../css/app.scss';
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 import $ from 'jquery';
 
+const axios = require('axios/dist/axios');
 
 let $collectionHolder;
 
@@ -67,8 +67,6 @@ function addStepForm($collectionHolder, $newLinkLi) {
 
     // add a delete link to the new form
     addStepFormDeleteLink($newFormLi);
-
-
 }
 
 function addStepFormDeleteLink($stepFormLi) {
@@ -94,4 +92,34 @@ $(document).ready(function() {
         const id = $(this).attr("id");
         $('#seemore-button-' + id).hide()
     });
+})
+
+//TODO : mettre le select2 pour les tags.
+
+$(document).ready(function () {
+
+    function onClickBtnDone(event) {
+        event.preventDefault();
+
+        const url = this.href;
+        const nbDone = $('.js-nbDone', this)
+        const icone = $('i', this)
+        console.log(icone);
+
+        axios.get(url).then(function (response) {
+            const dones = response.data.dones;
+            nbDone.text(dones);
+
+            if(icone.hasClass('fas')){
+                icone.removeClass('fas').addClass('far')
+            } else {
+                icone.removeClass('far').addClass('fas')
+            }
+        })
+    }
+
+    const $doneLinks = $('a.js-done-link')
+    $doneLinks.on('click', onClickBtnDone);
+
+
 })
