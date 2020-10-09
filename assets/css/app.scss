@@ -5,10 +5,16 @@
     $font-family-base : "Ropa Sans", "Helvetica Neue", sans-serif;
 }
 
-
-
 body {
     background-color: #E5E5E5;
+    font-family: "Ropa Sans", sans-serif;
+}
+
+a {
+    color: #6EB5B1 ;
+    &:hover,:active,:focus {
+        color: #558784;
+    }
 }
 
 .card {
@@ -46,7 +52,7 @@ pour écran de téléphone mobile (moins de 600px)*/
         left: 4.74%;
         right: 84.09%;
         top: 15%;
-        height: 70%;
+        height: 4rem;
     }
 
     .navbar-nav {
@@ -60,12 +66,21 @@ pour écran de téléphone mobile (moins de 600px)*/
         display: flex;
         flex-direction: row;
         align-content: space-around;
-        height: 5rem;
         position: fixed;
         left:0;
         bottom: 0;
         width: 100%;
         z-index: 3;
+        &-flexbox {
+            flex-direction: column;
+        }
+        &-top {
+            display: flex;
+            flex-direction: column-reverse;
+            width: 90%;
+            justify-content: space-around;
+            align-items: center;
+        }
     }
 }
 
@@ -83,12 +98,16 @@ pour écran de téléphone mobile (moins de 600px)*/
         left:0;
         top: 0;
         width: 100%;
+        &-top {
+            display: flex;
+            flex-direction: row;
+        }
     }
     .navbar-nav {
         display: flex;
         flex-direction: row;
         justify-content: space-around;
-        margin-top:3rem;
+        margin-top:0.5rem;
         margin-left: 3rem;
         margin-right: 3rem;
         align-items: center;
@@ -187,6 +206,10 @@ pour écran de téléphone mobile (moins de 600px)*/
 .card-tuto {
     background-color: transparent;
     border: none;
+
+    &-body-list {
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
 
     &-detail {
         background-color: #BBE6E3;
