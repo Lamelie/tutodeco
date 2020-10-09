@@ -117,9 +117,35 @@ $(document).ready(function () {
             }
         })
     }
-
     const $doneLinks = $('a.js-done-link')
     $doneLinks.on('click', onClickBtnDone);
+})
 
+$(document).ready(function () {
 
+    function onClickBtnTodo(event) {
+        event.preventDefault();
+
+        const url = this.href;
+        const nbTodo = $('.js-nbTodo', this)
+        const icone = $('i', this)
+        console.log(icone);
+
+        axios.get(url).then(function (response) {
+            const todos = response.data.todos;
+            nbTodo.text(todos);
+
+            if(icone.hasClass('fas')){
+                icone.removeClass('fas fa-clipboard-list').addClass('far fa-clipboard')
+            } else {
+                icone.removeClass('far fa-clipboard').addClass('fas fa-clipboard-list')
+            }
+        })
+    }
+    const $todoLinks = $('a.js-todo-link')
+    $todoLinks.on('click', onClickBtnTodo);
+})
+
+$(function () {
+    $('[data-toggle="popover"]').popover()
 })

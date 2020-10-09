@@ -6,19 +6,16 @@
     <div class="tuto-container">
         <h1>Tous les tutos</h1>
         <div class="row">
-
             {% for tutorial in tutorials %}
                 <div class="col-lg-4">
                     <div class="card card-tuto card-tuto-list" >
                         <div class="card-body card-tutolist-body">
                             <div class="card-tuto-body card-border">
-                                <div>
-                                    <div class="card-tuto-title">
-                                        <h3 class="card-tuto-title-text">{{ tutorial.title }}
-                                        </h3>
-                                        {% if app.user == tutorial.user %}<a href="{{ path('tutorial_edit', {'id' : tutorial.id}) }}"><i class="fas fa-edit card-tuto-edit"></i></a>
-                                        {% endif %}
-                                    </div>
+                                <div class="card-tuto-title">
+                                    <h3 class="card-tuto-title-text">{{ tutorial.title }}
+                                    </h3>
+                                    {% if app.user == tutorial.user %}<a href="{{ path('tutorial_edit', {'id' : tutorial.id}) }}"><i class="fas fa-edit card-tuto-edit"></i></a>
+                                    {% endif %}
                                 </div>
                                 <a href="{{ path('tutorial_show', {'id': tutorial.id}) }}">
                                     <img id="{{ tutorial.id }}" src="{{ asset('uploads/tutorials/' ~ tutorial.imageName) }}" alt="{{ tutorial.imageName }}" class="img-fluid card-tuto-image card-tuto-list-image">
@@ -26,8 +23,18 @@
                                 </a>
                                 <div class="card-tuto-picto">
                                     <div>
-                                        <a href="#" class="btn btn-link">
-                                            <i class="fas fa-clipboard-list card-tuto-picto"></i>
+                                        <a href="{{ path('tutorial_todo', {'id' : tutorial.id}) }}" class="btn btn-link js-todo-link {% if app.user == tutorial.user %} disabled {% endif %}" data-toggle="popover" data-content="Ajouté en todo" data-delay={'hide':100}>
+                                            <span class="js-nbTodo">
+                                                {{ tutorial.nbTodo }}
+                                            </span>
+                                            {% if app.user %}
+                                                {% if tutorial.isTodoByUser(app.user) == true %}
+                                                    <i class="fas fa-clipboard-list card-tuto-picto"></i>
+                                                {% else %}
+                                                    <i class="far fa-clipboard card-tuto-picto"></i>                                                {% endif %}
+                                            {% else %}
+                                                <i class="far fa-clipboard card-tuto-picto"></i>
+                                            {% endif %}
                                         </a>
                                     </div>
                                     <div>
@@ -41,6 +48,8 @@
                                                     {% else %}
                                                         <i class="far fa-check-square card-tuto-picto"></i>
                                                 {% endif %}
+                                            {% else %}
+                                                <i class="far fa-check-square card-tuto-picto"></i>
                                             {% endif %}
                                         </a>
                                     </div>

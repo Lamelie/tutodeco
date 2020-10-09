@@ -86,6 +86,7 @@ class TutorialController extends AbstractController
      * Permet de marquer comme fait ou pas fait un tutoriel
      *
      * @Route("/{id}/done", name="tutorial_done")
+     * @IsGranted("ROLE_USER")
      *
      * @param Tutorial $tutorial
      * @param EntityManagerInterface $manager
@@ -137,6 +138,61 @@ class TutorialController extends AbstractController
     }
 
     /**
+     * Permet de mettre ou retirer un tutoriel de sa todo list
+     *
+     * @Route("/{id}/todo", name="tutorial_todo")
+     * @IsGranted("ROLE_USER")
+     *
+     * @param Tutorial $tutorial
+     * @param EntityManagerInterface $manager
+     * @param UserTutorialRepository $userTutorialRepository
+     * @return Response
+     */
+    public function todo(Tutorial $tutorial, EntityManagerInterface $manager, UserTutorialRepository $userTutorialRepository): Response
+    {
+        $user = $this->getUser();
+
+        if(!$user) return $this->json([
+            'code' => 403,
+            'message' => "unauthorized"
+        ], 403);
+
+        if($tutorial->isTodoByUser($user)){
+            $todo = $userTutorialRepository->findOneBy([
+                'tutorial'=> $tutorial,
+                'user'=>$user,
+                'todo' => 1,
+            ]);
+            $manager->remove($todo);
+            $manager->flush();
+
+            return $this->json([
+                'code' => 200,
+                'message' => "todo supprimé",
+                'todos' => $userTutorialRepository->count([
+                    'tutorial'=> $tutorial,
+                    'todo' => 1
+                ])
+            ], 200);
+        }
+        $todo = new UserTutorial();
+        $todo->setTutorial($tutorial)
+            ->setUser($user)
+            ->setTodo(1);
+        $manager->persist($todo);
+        $manager->flush();
+
+        return $this->json([
+            "code"=>200,
+            "message"=>"todo ajouté",
+            'todos' => $userTutorialRepository->count([
+                'tutorial'=> $tutorial,
+                'todo' => 1
+            ])
+        ], 200);
+    }
+
+    /**
      * @Route("/{id}/edit", name="tutorial_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Tutorial $tutorial): Response
@@ -174,8 +230,6 @@ class TutorialController extends AbstractController
 
         return $this->redirectToRoute('tutorial_index');
     }
-
-
 
 
 }

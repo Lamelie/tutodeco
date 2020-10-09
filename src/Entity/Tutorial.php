@@ -482,6 +482,18 @@ class Tutorial
     }
 
     /**
+     * Fonction pour récupérer le nombre de "todo" pour chaque tutoriel
+     * @return int
+     */
+    public function getNbTodo(): int
+    {
+        return array_reduce($this->getUserTutorials()->toArray(), function($carry, $userTutorial) {
+            /** @var UserTutorial $userTutorial */
+            return $carry + ($userTutorial->getTodo() ? 1 : 0);
+        }, 0);
+    }
+
+    /**
      *
      * Permet de savoir si le tutoriel a été fait par l'utilisateur ou pas
      *
@@ -493,6 +505,23 @@ class Tutorial
         $userTutorials = $this->getUserTutorials();
         foreach ($userTutorials as $userTutorial) {
             if ($userTutorial->getUser() === $user and $userTutorial->getDone() == 1) {
+                return true;
+            }
+        } return false;
+    }
+
+    /**
+     *
+     * Permet de savoir si le tutoriel a été fait par l'utilisateur ou pas
+     *
+     * @param User $user
+     * @return boolean
+     */
+    public function isTodoByUser (User $user) : bool
+    {
+        $userTutorials = $this->getUserTutorials();
+        foreach ($userTutorials as $userTutorial) {
+            if ($userTutorial->getUser() === $user and $userTutorial->getTodo() == 1) {
                 return true;
             }
         } return false;
