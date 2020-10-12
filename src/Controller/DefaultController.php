@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\TutorialSearchType;
 use App\Repository\TutorialRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,39 +15,27 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index()
-    {
-        return $this->render('default/index.html.twig', [
-            'controller_name' => 'Amélie',
-        ]);
-    }
 
-    public function tutoNav ()
-    {
-        return $this->render("default/_menu.html.twig");
-    }
+    public function index(Request $request, TutorialRepository $repository, PaginatorInterface $paginator) {
 
-    public function recherche(Request $request, TutorialRepository $repository, PaginatorInterface $paginator) {
-
-        $searchForm = $this->createForm(SearchType::class);
+        $searchForm = $this->createForm(TutorialSearchType::class);
         $searchForm->handleRequest($request);
 
         $data = $repository->findAll();
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
 
-            $title = $searchForm->getData()->getTitle();
+            $keyword = $searchForm->getData()->getTitle();
 
-            $data = $repository->search($title);
-
+            $data = $repository->search($keyword);
 
             if ($data == null) {
-                $this->addFlash('erreur', 'Aucun article contenant ce mot clé n\'a été trouvé, essayez en un autre.');
+                $this->addFlash('erreur', 'Aucun tutoriel contenant ce mot clé n\'a été trouvé, essayez en un autre.');
             }
         }
 
         // Paginate the results of the query
-        $articles = $paginator->paginate(
+        $tutorials = $paginator->paginate(
         // Doctrine Query, not results
             $data,
             // Define the page parameter
@@ -55,11 +44,17 @@ class DefaultController extends AbstractController
             4
         );
 
-        return $this->render('biblio/search.html.twig',[
-            'articles' => $articles,
+        return $this->render('default/index.html.twig',[
+            'tutorials' => $tutorials,
             'searchForm' => $searchForm->createView()
         ]);
     }
+
+    public function tutoNav ()
+    {
+        return $this->render("default/_menu.html.twig");
+    }
+
 
 
 }

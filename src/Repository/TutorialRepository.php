@@ -26,7 +26,8 @@ class TutorialRepository extends ServiceEntityRepository
     public function search($title)
     {
         return $this->createQueryBuilder('t')
-            ->andWhere('t.title LIKE :title' or 't.description LIKE :title')
+            ->andWhere('t.title LIKE :title')
+            ->orWhere('t.description LIKE :title')
             ->setParameter('title', '%'.$title.'%')
             ->orderBy('t.id', 'ASC')
             ->getQuery()

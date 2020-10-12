@@ -2,8 +2,46 @@
 
 {% block body %}
 
-<div class="example-wrapper">
+<div class="row tuto-container flex-column">
     <h1>Bienvenue sur TutoDeco</h1>
+
+    <div class="col-lg-4">
+        {{ form_start(searchForm) }}
+        {{ form_row(searchForm.title, {'label': " ", 'attr': {'placeholder': 'mot clé...'}}) }}
+        <button class="btn tutodeco-btn col-3">rechercher</button>
+        {{ form_end(searchForm) }}
+    </div>
+
+    <section id="content">
+
+        {% for tutorial in tutorials %}
+            <article>
+                <div class="card card-tuto">
+                    <div class="card-header">
+
+                        <h3>{{ tutorial.title }}</h3>
+
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Ecrit le {{ tutorial.createdAt | date('d/m/Y') }} à {{ tutorial.createdAt | date('H:i') }} </h4>
+                        <p class="card-text">
+
+                            {{ tutorial.description | slice(0, 170) | raw }} ...
+
+                        </p>
+                        <a href="{{ path('tutorial_show', {'id': tutorial.id}) }}" class="btn btn-primary">Lire la suite</a>
+                    </div>
+                </div>
+            </article>
+        {% endfor %}
+
+    </section>
+
+
+    <div class="pagination">
+        {{ knp_pagination_render(tutorials) }}
+    </div>
+
 
 </div>
 {% endblock %}
