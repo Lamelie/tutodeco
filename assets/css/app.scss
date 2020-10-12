@@ -5,6 +5,9 @@
     $font-family-base : "Ropa Sans", "Helvetica Neue", sans-serif;
 }
 
+
+
+
 body {
     background-color: #E5E5E5;
     font-family: "Ropa Sans", sans-serif;
@@ -336,8 +339,17 @@ pour écran de téléphone mobile (moins de 600px)*/
                 margin-bottom: unset;
             }
         }
-
     }
-
 }
 
+/* PAGE MY ACCOUNT */
+
+.myaccount-tab {
+    display: flex;
+    justify-content: space-around;
+}
+
+/* pour tablettes en mode paysage (768px et plus) */
+@media only screen and (min-width: 768px) {
+
+}
