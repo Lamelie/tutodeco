@@ -20,7 +20,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  */
 class TutorialController extends AbstractController
 {
-    //TODO: faire affichage de l'index en version mobile (lien sur l'image, correction de l'ombre portée)
     /**
      * @Route("/", name="tutorial_index", methods={"GET"})
      */
@@ -86,7 +85,6 @@ class TutorialController extends AbstractController
      * Permet de marquer comme fait ou pas fait un tutoriel
      *
      * @Route("/{id}/done", name="tutorial_done")
-     * @IsGranted("ROLE_USER")
      *
      * @param Tutorial $tutorial
      * @param EntityManagerInterface $manager
@@ -141,7 +139,6 @@ class TutorialController extends AbstractController
      * Permet de mettre ou retirer un tutoriel de sa todo list
      *
      * @Route("/{id}/todo", name="tutorial_todo")
-     * @IsGranted("ROLE_USER")
      *
      * @param Tutorial $tutorial
      * @param EntityManagerInterface $manager

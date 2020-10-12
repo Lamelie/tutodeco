@@ -23,7 +23,7 @@
                                 </a>
                                 <div class="card-tuto-picto">
                                     <div>
-                                        <a href="{{ path('tutorial_todo', {'id' : tutorial.id}) }}" class="btn btn-link js-todo-link {% if app.user == tutorial.user %} disabled {% endif %}" data-toggle="popover" data-content="Ajouté en todo" data-delay={'hide':100}>
+                                        <a href="{{ path('tutorial_todo', {'id' : tutorial.id}) }}" class="btn btn-link js-todo-link {% if app.user == tutorial.user %} disabled {% endif %}" {% if app.user %}data-toggle="popover" data-content="Ajouté en todo" data-delay={"show":100,"hide":100} {% endif %}>
                                             <span class="js-nbTodo">
                                                 {{ tutorial.nbTodo }}
                                             </span>
@@ -31,7 +31,8 @@
                                                 {% if tutorial.isTodoByUser(app.user) == true %}
                                                     <i class="fas fa-clipboard-list card-tuto-picto"></i>
                                                 {% else %}
-                                                    <i class="far fa-clipboard card-tuto-picto"></i>                                                {% endif %}
+                                                    <i class="far fa-clipboard card-tuto-picto"></i>
+                                                {% endif %}
                                             {% else %}
                                                 <i class="far fa-clipboard card-tuto-picto"></i>
                                             {% endif %}
