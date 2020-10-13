@@ -13,27 +13,12 @@
     </div>
 
     <section id="content">
+        <div class="row">
 
         {% for tutorial in tutorials %}
-            <article>
-                <div class="card card-tuto">
-                    <div class="card-header">
-
-                        <h3>{{ tutorial.title }}</h3>
-
-                    </div>
-                    <div class="card-body">
-                        <h4 class="card-title">Ecrit le {{ tutorial.createdAt | date('d/m/Y') }} à {{ tutorial.createdAt | date('H:i') }} </h4>
-                        <p class="card-text">
-
-                            {{ tutorial.description | slice(0, 170) | raw }} ...
-
-                        </p>
-                        <a href="{{ path('tutorial_show', {'id': tutorial.id}) }}" class="btn btn-primary">Lire la suite</a>
-                    </div>
-                </div>
-            </article>
+            {% include 'default/_tutocard.html.twig' %}
         {% endfor %}
+        </div>
 
     </section>
 

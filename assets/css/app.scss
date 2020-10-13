@@ -265,11 +265,12 @@ pour écran de téléphone mobile (moins de 600px)*/
             padding: 5px;
 
         }
-        & h5 {
+        & h2, h3, h5 {
             background-color: #6EB5B1 ;
             color: white;
             width: 100%;
             padding: 5px;
+            margin-bottom: 0;
         }
     }
     &-text {
