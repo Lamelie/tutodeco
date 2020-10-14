@@ -16,6 +16,7 @@
                     Bonjour, {{ app.user.firstName }} - <a href="{{ path('my_account') }}">Mon compte</a> (<a href="{{ path('app_logout') }}">Se déconnecter</a>)
                 {% else %}
                     <a href="{{ path('app_login') }}">Se connecter</a>
+                    <a class="btn tutodeco-btn" href="{{ path('app_register') }}">Se créer un compte</a>
                 {% endif %}
             </div>
         </div>

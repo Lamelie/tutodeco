@@ -6,3 +6,7 @@ vich_uploader:
             uri_prefix: /uploads/tutorials
             upload_destination: '%kernel.project_dir%/public/uploads/tutorials'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        user_picture:
+            uri_prefix: /uploads/users
+            upload_destination: '%kernel.project_dir%/public/uploads/users'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
