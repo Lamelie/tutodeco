@@ -1,12 +1,6 @@
 @import "~bootstrap/scss/bootstrap";
 @import url('https://fonts.googleapis.com/css2?family=Ropa+Sans&display=swap');
 @import "~@fortawesome/fontawesome-free/css/all.css";
-@font-face {
-    $font-family-base : "Ropa Sans", "Helvetica Neue", sans-serif;
-}
-
-
-
 
 body {
     background-color: #E5E5E5;
@@ -18,6 +12,10 @@ a {
     &:hover,:active,:focus {
         color: #558784;
     }
+}
+
+.custom-file-label::after {
+    content: "Rechercher";
 }
 
 .card {

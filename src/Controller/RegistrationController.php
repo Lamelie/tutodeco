@@ -36,6 +36,7 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
+            $user->setRoles(["ROLE_USER"]);
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
@@ -52,7 +53,7 @@ class RegistrationController extends AbstractController
                 (new TemplatedEmail())
                     ->from(new Address('ameliederoche@hotmail.com', 'Tudo Deco Mail'))
                     ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')
+                    ->subject('Merci de confirmer votre email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
             // do anything else you need here, like send an email
