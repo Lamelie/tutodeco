@@ -204,6 +204,12 @@ pour écran de téléphone mobile (moins de 600px)*/
     }
 }
 
+.tuto-tab-content {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+}
+
 .card-tuto {
     background-color: transparent;
     border: none;

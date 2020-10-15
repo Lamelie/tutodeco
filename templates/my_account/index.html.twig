@@ -12,10 +12,10 @@
 
         <ul class="nav nav-tabs myaccount-tab col-md-6" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="todo-tab" data-toggle="tab" role="tab" aria-controls="todo" href="#todo">Ma todo-list</a>
+                <a class="nav-link active" id="todo-tab" data-toggle="tab" role="tab" aria-controls="todo" href="#todo">Ma todo-list ({{ todos|length }})</a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link" id="done-tab" data-toggle="tab" role="tab" href="#done" aria-controls="done">Ma done-list</a>
+                <a class="nav-link" id="done-tab" data-toggle="tab" role="tab" href="#done" aria-controls="done">Ma done-list ({{ dones|length }})</a>
             </li>
             <li class="nav-item" role="presentation">
                 <a class="nav-link" id="tutos-tab" data-toggle="tab" role="tab" href="#tutos" aria-controls="tutos">Mes tutos</a>
@@ -24,14 +24,26 @@
 
         <div class="tab-content" id="myTabContent">
             <div id="todo" class="tab-pane fade show in active" role="tabpanel" aria-labelledby="todo-tab">
-                <h3>TODO-LIST</h3>
-                <p>Some content.</p>
+                <div class="tuto-tab-content">
+                {% for userTutorial in todos %}
+                        {% include "default/_tutocard.html.twig" with { 'tutorial': userTutorial.tutorial } only %}
+                    {% else %}
+                        <p>Vous n'avez pas encore ajouté de tuto à votre todo-list ! </p>
+                        <a href="{{ path('tutorial_index') }}">Voir les tutos</a>
+                    {% endfor %}
+                </div>
             </div>
             <div id="done" class="tab-pane fade" role="tabpanel" aria-labelledby="done-tab">
-                <h3>DONE-LIST</h3>
-                <p>Some content in menu 1.</p>
+                <div class="tuto-tab-content">
+                    {% for userTutorial in dones %}
+                        {% include "default/_tutocard.html.twig" with { 'tutorial': userTutorial.tutorial } only %}
+                    {% else %}
+                        <p>Vous n'avez pas encore réalisé des tutos ! </p>
+                        <a data-toggle="tab" role="tab" aria-controls="todo" href="#todo">Voir ma todo-list</a>
+                    {% endfor %}
+                </div>
             </div>
-            <div id="tutos" class="tab-pane fade" role="tabpanel" aria-labelledby="tutos-tab">
+            <div id="tutos" class="tab-pane fade tuto-tab-content" role="tabpanel" aria-labelledby="tutos-tab">
                 <h3>MES TUTOS</h3>
                 <p>Some content in menu 2.</p>
             </div>

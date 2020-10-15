@@ -115,13 +115,26 @@ class TutorialController extends AbstractController
                 'dones' => $userTutorialRepository->count([
                         'tutorial'=> $tutorial,
                         'done' => 1
-                    ])
+                    ]),
+                'todos' => $userTutorialRepository->count([
+                    'tutorial'=> $tutorial,
+                    'todo' => 1
+                ])
             ], 200);
         }
         $done = new UserTutorial();
         $done->setTutorial($tutorial)
             ->setUser($user)
             ->setDone(1);
+        if($tutorial->isTodoByUser($user)){
+            $todo = $userTutorialRepository->findOneBy([
+                'tutorial'=> $tutorial,
+                'user'=>$user,
+                'todo' => 1,
+            ]);
+            $manager->remove($todo);
+        }
+
         $manager->persist($done);
         $manager->flush();
 
@@ -131,7 +144,11 @@ class TutorialController extends AbstractController
                 'dones' => $userTutorialRepository->count([
                     'tutorial'=> $tutorial,
                     'done' => 1
-                    ])
+                    ]),
+                'todos' => $userTutorialRepository->count([
+                    'tutorial'=> $tutorial,
+                    'todo' => 1
+                ])
             ], 200);
     }
 
@@ -169,6 +186,10 @@ class TutorialController extends AbstractController
                 'todos' => $userTutorialRepository->count([
                     'tutorial'=> $tutorial,
                     'todo' => 1
+                ]),
+                'dones' => $userTutorialRepository->count([
+                    'tutorial'=> $tutorial,
+                    'done' => 1
                 ])
             ], 200);
         }
@@ -176,12 +197,24 @@ class TutorialController extends AbstractController
         $todo->setTutorial($tutorial)
             ->setUser($user)
             ->setTodo(1);
+        if($tutorial->isDoneByUser($user)){
+            $done = $userTutorialRepository->findOneBy([
+                'tutorial'=> $tutorial,
+                'user'=>$user,
+                'done' => 1,
+            ]);
+            $manager->remove($done);
+        }
         $manager->persist($todo);
         $manager->flush();
 
         return $this->json([
             "code"=>200,
             "message"=>"todo ajouté",
+            'dones' => $userTutorialRepository->count([
+                'tutorial'=> $tutorial,
+                'done' => 1
+            ]),
             'todos' => $userTutorialRepository->count([
                 'tutorial'=> $tutorial,
                 'todo' => 1

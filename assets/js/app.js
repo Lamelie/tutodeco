@@ -90,7 +90,6 @@ $(document).ready(function() {
 
 //TODO : mettre le select2 pour les tags.
 
-//TODO: gérer les erreurs pour le clic sur todo et done (voir vidéo)
 //permet l'ajout en done-list
 $(document).ready(function () {
 
@@ -151,9 +150,6 @@ $(document).ready(function () {
     $todoLinks.on('click', onClickBtnTodo);
 })
 
-//affiche une petite bulle d'explication au clic sur "todo" ou "done"
-$(function () {
-    $('[data-toggle="popover"]').popover()
-})
+
 
 
