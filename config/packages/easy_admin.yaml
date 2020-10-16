@@ -1,9 +1,31 @@
 # config/packages/easy_admin.yaml
 easy_admin:
+  site_name: 'TUTO-DECO'
+  design:
+    form_theme:
+      - '@EasyAdmin/form/bootstrap_4.html.twig'
+      # the following Twig template can be located anywhere in the application.
+      # it can also be added to the twig.form_themes option to use it in the
+      # entire application, not only the backend
+      - 'admin/form.html.twig'
+  user:
+    display_name: true
+    display_avatar: false
   entities:
+    Tutorial :
+      class: App\Entity\Tutorial
+      form:
+        fields:
+          - { type: 'tab', label: 'Informations'}
+          - id
+          - title
+          - description
+          - {type: 'tab', label: 'étapes'}
+          - {property: 'steps', label: 'étapes', type: 'collection', type_options: {entry_type: 'App\Form\StepType', by_reference: false}}
+#      templates :
+#        edit: 'admin/form.html.twig'
     # change the following to the namespaces of your own entities
-    - App\Entity\Tutorial
-    - App\Entity\Tag
-    - App\Entity\User
-    - App\Entity\Material
-    - App\Entity\Tool
+    #- App\Entity\Tag
+    #- App\Entity\User
+    #- App\Entity\Material
+    #- App\Entity\Tool

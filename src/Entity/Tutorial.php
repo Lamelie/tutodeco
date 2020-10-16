@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\TutorialRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -64,7 +65,7 @@ class Tutorial
     /**
      * @ORM\Column(type="datetime")
      *
-     * @var \DateTimeInterface|null
+     * @var DateTimeInterface|null
      */
     private $updatedAt;
 
@@ -84,7 +85,7 @@ class Tutorial
     private $validation;
 
     /**
-     * @ORM\OneToMany(targetEntity=Step::class, mappedBy="tutorial", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Step::class, mappedBy="tutorial", orphanRemoval=true, cascade={"all"})
      */
     private $steps;
 
@@ -231,12 +232,12 @@ class Tutorial
     }
 
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -248,6 +249,11 @@ class Tutorial
         $this->updatedAt = new \DateTime("now");
 
         return $this;
+    }
+
+    public function getUpdatedAt(): ?DateTimeInterface
+    {
+        return $this->updatedAt;
     }
 
     public function getValidation(): ?string
@@ -272,10 +278,10 @@ class Tutorial
 
     public function addStep(Step $step): self
     {
-        if (!$this->steps->contains($step)) {
+
             $this->steps[] = $step;
             $step->setTutorial($this);
-        }
+
 
         return $this;
     }
