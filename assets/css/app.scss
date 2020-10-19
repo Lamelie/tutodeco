@@ -272,6 +272,11 @@ pour écran de téléphone mobile (moins de 600px)*/
         &:last-child {
             margin-bottom: 25px;
         }
+        &-image {
+            width: 20rem;
+            height: 15rem;
+            object-fit: cover
+        }
     }
     &-title {
         text-align: center;
@@ -320,6 +325,7 @@ pour écran de téléphone mobile (moins de 600px)*/
             &-details {
                 display: flex;
                 flex-direction: column;
+                padding-bottom: 0.7rem;
             }
             &-step {
                 flex-direction: column;

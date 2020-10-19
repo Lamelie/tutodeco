@@ -6,6 +6,7 @@ use App\Entity\Step;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class StepType extends AbstractType
 {
@@ -14,9 +15,8 @@ class StepType extends AbstractType
         $builder
             ->add('number')
             ->add('description')
-            //->add('picture_name')
+            ->add('imageFile', VichImageType::class)
             //->add('video_url')
-            //->add('tutorial')
         ;
     }
 

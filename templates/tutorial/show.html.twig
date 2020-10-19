@@ -27,6 +27,7 @@
                             </p>
                         {% endif %}
                         <p class="card-text card-tuto-text">{{ tutorial.description}}</p>
+
                     </div>
                 </div>
             </div>
@@ -37,6 +38,43 @@
                     <p class="card-tuto-detail"><i class="fas fa-hourglass-half"></i> {{ tutorial.duration }} min</p>
                     <p class="card-tuto-detail"><i class="fas fa-tools"></i> {{ tutorial.level }}</p>
                     <p class="card-tuto-detail"><i class="fas fa-euro-sign"></i> {{ tutorial.cost }}</p>
+
+                </div>
+                <div class="card-tuto-picto">
+                    <div>
+                        <a href="{{ path('tutorial_todo', {'id' : tutorial.id}) }}" class="btn btn-link js-todo-link {% if app.user == tutorial.user %} disabled {% endif %}" {% if app.user %}data-toggle="popover" data-content="Ajouté en todo" data-delay={"show":100,"hide":100} {% endif %}>
+                                            <span class="js-nbTodo">
+                                                {{ tutorial.nbTodo }}
+                                            </span>
+                            {% if app.user %}
+                                {% if tutorial.isTodoByUser(app.user) == true %}
+                                    <i class="fas fa-clipboard-list card-tuto-picto"></i>
+                                    <p class="js-message-todo text-muted">Dans votre todo-list !</p>
+                                {% else %}
+                                    <i class="far fa-clipboard card-tuto-picto"></i>
+                                {% endif %}
+                            {% else %}
+                                <i class="far fa-clipboard card-tuto-picto"></i>
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div>
+                        <a href="{{ path('tutorial_done', {'id' : tutorial.id}) }}" class="btn btn-link js-done-link {% if app.user == tutorial.user %} disabled {% endif %}">
+                            <span class="js-nbDone">
+                                {{ tutorial.nbDone }}
+                            </span>
+                            {% if app.user %}
+                                {% if tutorial.isDoneByUser(app.user) == true %}
+                                    <i class="fas fa-check-square card-tuto-picto"></i>
+                                    <p class="js-message-done text-muted">Vous l'avez fait !</p>
+                                {% else %}
+                                    <i class="far fa-check-square card-tuto-picto"></i>
+                                {% endif %}
+                            {% else %}
+                                <i class="far fa-check-square card-tuto-picto"></i>
+                            {% endif %}
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -77,9 +115,12 @@
                         <div class="card-title card-tuto-title">
                             <h5>Etape {{ loop.index }}</h5>
                         </div>
-                        <li class="card-body card-tuto-body-step">
-                            <p class="card-tuto-text">{{ step.description }}</p>
-                        </li>
+                        <div class="d-flex flex-column flex-lg-row">
+                            <li class="card-body card-tuto-body-step">
+                                <p class="card-tuto-text">{{ step.description }}</p>
+                            </li>
+                            <img src="{{ asset('uploads/tutorials/' ~ step.pictureName) }}" alt="{{ step.pictureName }}" class="img-fluid card-tuto-step-image">
+                        </div>
                     </div>
                 {% endfor %}
             </ul>
@@ -87,10 +128,4 @@
     </div>
 
 
-
-    <a href="{{ path('tutorial_index') }}">back to list</a>
-
-    <a href="{{ path('tutorial_edit', {'id': tutorial.id}) }}">edit</a>
-
-    {{ include('tutorial/_delete_form.html.twig') }}
 {% endblock %}
