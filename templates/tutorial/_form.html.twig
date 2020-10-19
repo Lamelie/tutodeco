@@ -2,17 +2,16 @@
 {{ form_start(form) }}
     {{ form_row(form.title, {'label' : 'Titre'}) }}
     {{ form_row(form.description) }}
-    <div class="d-flex flex-row justify-content-between">
+    {{ form_row(form.imageFile, {'label' : 'Photo'}) }}
+    <h2>Fournitures</h2>
     {{ form_row(form.materials, {'label' : 'Matériel'}) }}
     {{ form_row(form.tools, {'label' : 'Outils'}) }}
+    <h2>Information supplémentaires</h2>
     {{ form_row(form.duration, {'label' : 'Durée en minutes'}) }}
     {{ form_row(form.level, {'label' : 'Difficulté'}) }}
     {{ form_row(form.cost, {'label' : 'Budget'}) }}
-    </div>
-    <div class="d-flex flex-row col-lg-6 justify-content-between">
+
     {{ form_row(form.tags) }}
-    {{ form_row(form.imageFile, {'label' : 'Photo'}) }}
-    </div>
     {{ form_row(form._token) }}
 
     <h2>Etapes</h2>

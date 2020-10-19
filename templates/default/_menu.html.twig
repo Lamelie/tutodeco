@@ -2,9 +2,13 @@
     <a href="{{ path('homepage') }}">
         <img src="{{ asset('uploads/logo/logo.png') }}" alt="logo" class="img-fluid tutologo navbar-brand">
     </a>
+    {% if app.user %}
+        <a class="btn tutodeco-btn tutodeco-btn-create-mobile" href="{{ path('tutorial_new') }}">+</a>
+    {% endif %}
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
     </button>
+
     <div class="collapse navbar-collapse tutonav-flexbox" id="navbarSupportedContent">
         <div class="tutonav-top">
 {#                <input class="form-control mr-sm-2" type="search" placeholder="Mot clé..." aria-label="Search">#}
@@ -35,7 +39,7 @@
             </li>
             <li>
                 {% if app.user %}
-                <a href="{{ path('tutorial_new') }}">Créer un tuto</a>
+                <a class="btn tutodeco-btn tutodeco-btn-create" href="{{ path('tutorial_new') }}">Créer un tuto</a>
                 {% endif %}
             </li>
         </ul>

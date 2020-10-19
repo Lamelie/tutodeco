@@ -15,6 +15,10 @@
     url('../fonts/ropa-sans-v10-latin-regular.eot?#iefix') format('embedded-opentype'); /* IE6-IE8 */
 }
 
+/*
+CSS général pour le site
+*/
+
 body {
     background-color: #E5E5E5;
     font-family: "Ropa Sans", "Helvetica Neue", sans-serif;
@@ -36,6 +40,9 @@ a {
     &-body {
         padding: 0;
     }
+}
+.navbar-toggler-icon{
+    font-size: 2rem;
 }
 
 .tuto-background {
@@ -68,49 +75,64 @@ a {
             box-shadow: 0 0 0 0.2rem white;
         }
     }
-
+    &-create {
+        display: none;
+        &-mobile {
+            font-size: 2rem;
+        }
+    }
 }
 
-/*MENU DE NAVIGATION
-Media queries pour le menu de navigation
 
-pour écran de téléphone mobile (moins de 600px)*/
-@media only screen  {
-    .tutologo {
-        left: 4.74%;
-        right: 84.09%;
-        top: 15%;
-        height: 4rem;
+/* pour tablettes en mode paysage (768px et plus) */
+@media only screen and (min-width: 768px) {
+    .tutodeco-btn {
+        &-create {
+        display: inline;
+            &-mobile {
+                display: none;
+            }
+        }
     }
+}
 
-    .navbar-nav {
+/*MENU DE NAVIGATION*/
+
+.tutologo {
+    left: 4.74%;
+    right: 84.09%;
+    top: 15%;
+    height: 4rem;
+}
+
+.navbar-nav {
+    flex-direction: column;
+    width: 100%;
+    align-content: space-between;
+}
+.tutonav {
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: row;
+    align-content: space-around;
+    position: fixed;
+    left:0;
+    bottom: 0;
+    width: 100%;
+    z-index: 3;
+    &-flexbox {
         flex-direction: column;
-        width: 100%;
-        align-content: space-between;
     }
-    .tutonav {
-        background: #FFFFFF;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    &-top {
         display: flex;
-        flex-direction: row;
-        align-content: space-around;
-        position: fixed;
-        left:0;
-        bottom: 0;
-        width: 100%;
-        z-index: 3;
-        &-flexbox {
-            flex-direction: column;
-        }
-        &-top {
-            display: flex;
-            flex-direction: column-reverse;
-            width: 90%;
-            justify-content: space-around;
-            align-items: center;
-        }
+        flex-direction: column-reverse;
+        width: 90%;
+        justify-content: space-around;
+        align-items: center;
     }
 }
+
 
 /* pour tablettes en mode paysage (768px et plus) */
 @media only screen and (min-width: 768px) {
@@ -121,7 +143,7 @@ pour écran de téléphone mobile (moins de 600px)*/
         display: flex;
         flex-direction: row;
         align-content: space-around;
-        height: 5rem;
+        height: 6rem;
         position: relative;
         left:0;
         top: 0;
