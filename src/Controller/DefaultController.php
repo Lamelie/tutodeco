@@ -24,7 +24,8 @@ class DefaultController extends AbstractController
         ]);
         $searchForm->handleRequest($request);
 
-        $data = $repository->findAll();
+        $data = $repository->findby(
+            ['validation' => 1]);
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
 

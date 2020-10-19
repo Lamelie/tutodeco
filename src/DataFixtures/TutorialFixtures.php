@@ -15,7 +15,7 @@ class TutorialFixtures extends Fixture implements DependentFixtureInterface
         $tutorial->setTitle("Pot à crayon coloré en bois");
         $tutorial->setDescription("Réalisez ce joli pot à crayon coloré et graphique. Utile pour ranger tous ses crayons !");
         $tutorial->setDuration(120);
-        $tutorial->setValidation("En cours de validation");
+        $tutorial->setValidation(1);
         $tutorial->setImageName("pot-a-crayon.jpg");
         $tutorial->setImageSize("3");
         $tutorial->setUpdatedAt();

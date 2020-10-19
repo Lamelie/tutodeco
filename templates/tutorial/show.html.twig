@@ -4,6 +4,10 @@
 
 {% block body %}
 
+    {% if tutorial.validation == 0 %}
+    <p>Ce tutoriel n'a pas été validé</p>
+    {% else %}
+
     <div class="row">
         <div class="col-lg-8">
             <div class="card card-border card-tuto" >
@@ -126,6 +130,7 @@
             </ul>
         </div>
     </div>
+    {% endif %}
 
 
 {% endblock %}

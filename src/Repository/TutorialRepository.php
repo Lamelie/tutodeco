@@ -28,11 +28,31 @@ class TutorialRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('t')
             ->andWhere('t.title LIKE :title')
             ->orWhere('t.description LIKE :title')
+            ->having('t.validation = 1')
             ->setParameter('title', '%'.$title.'%')
             ->orderBy('t.id', 'ASC')
             ->getQuery()
             ->execute()
         ;
+    }
+
+    /**
+     * TODO:à terminer
+     * @return Tutorial[] Returns an array of Tutorial objects
+     */
+
+    public function searchplus($title, $duration, $level, $cost)
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.title LIKE :title')
+            ->orWhere('t.description LIKE :title')
+            ->having('t.validation = 1')
+            ->andWhere('t.duration = :duration')
+            ->setParameter('title', '%'.$title.'%')
+            ->orderBy('t.id', 'ASC')
+            ->getQuery()
+            ->execute()
+            ;
     }
 
 

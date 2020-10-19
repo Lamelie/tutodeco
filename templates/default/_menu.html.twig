@@ -19,7 +19,9 @@
 
             <div>
                 {% if app.user %}
-                    Bonjour, {{ app.user.firstName }} - <a href="{{ path('my_account') }}">Mon compte</a> (<a href="{{ path('app_logout') }}">Se déconnecter</a>)
+                    Bonjour, {{ app.user.firstName }} - <a href="{{ path('my_account') }}">Mon compte</a> {% if is_granted('ROLE_ADMIN') %}
+                    - <a href="{{ path('easyadmin') }}"><i class="fa fa-dashboard"></i>Administration</a>
+                {% endif %} (<a href="{{ path('app_logout') }}">Se déconnecter</a>)
                 {% else %}
                     <a href="{{ path('app_login') }}">Se connecter</a>
                     <a class="btn tutodeco-btn" href="{{ path('app_register') }}">Se créer un compte</a>

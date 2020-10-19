@@ -27,7 +27,9 @@ class TutorialController extends AbstractController
     {
         $em = $this->getDoctrine();
 
-        $tutorials = $tutorialRepository->findAll();
+        $tutorials = $tutorialRepository->findby(
+            ['validation' => 1]
+        );
         $userTutorials = $em->getRepository(UserTutorial::class)->findAll();
 
         return $this->render('tutorial/index.html.twig', [
@@ -51,6 +53,7 @@ class TutorialController extends AbstractController
             try {
             $entityManager = $this->getDoctrine()->getManager();
             $tutorial->setUser($this->getUser());
+            $tutorial->setValidation(0);
             $entityManager->persist($tutorial);
             $entityManager->flush();
             return $this->redirectToRoute('tutorial_index');

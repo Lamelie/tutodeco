@@ -19,8 +19,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class Tutorial
 {
 
-    //TODO: ajouter des constantes pour les statuts de validation
-    const VALIDATION_PENDING = "En attente de validation";
 
     /**
      * @ORM\Id
@@ -80,7 +78,7 @@ class Tutorial
     private $createdAt;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $validation;
 
@@ -256,12 +254,12 @@ class Tutorial
         return $this->updatedAt;
     }
 
-    public function getValidation(): ?string
+    public function getValidation(): ?bool
     {
         return $this->validation;
     }
 
-    public function setValidation(string $validation): self
+    public function setValidation(bool $validation): self
     {
         $this->validation = $validation;
 
