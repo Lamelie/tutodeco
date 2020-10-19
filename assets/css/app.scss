@@ -54,6 +54,20 @@ a {
     &:focus {
         box-shadow: 0 0 0 0.2rem white;
     }
+    &-supp {
+        background-color: #aa2c4e;
+        border: none;
+        padding: 0.2rem 1rem;
+        border-radius: 1rem;
+        color: white;
+        margin-bottom: 1rem;
+        &:hover, &:active {
+            background-color: #ce8483;
+        }
+        &:focus {
+            box-shadow: 0 0 0 0.2rem white;
+        }
+    }
 
 }
 
@@ -376,4 +390,14 @@ pour écran de téléphone mobile (moins de 600px)*/
 /* pour tablettes en mode paysage (768px et plus) */
 @media only screen and (min-width: 768px) {
 
+}
+
+/* CREER UN TUTORIEL */
+
+.vich-image {
+    & img {
+        width: 20rem;
+        height: 15rem;
+        object-fit: cover
+    }
 }

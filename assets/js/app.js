@@ -17,7 +17,7 @@ const axios = require('axios/dist/axios');
 let $collectionHolder;
 
 // setup an "add a step" link
-const $addStepButton = $('<button type="button" class="add_step_link btn-success">Ajouter une étape</button>');
+const $addStepButton = $('<button type="button" class="btn tutodeco-btn">Ajouter une étape</button>');
 const $newLinkLi = $('<li></li>').append($addStepButton);
 
 $(document).ready(function() {
@@ -34,10 +34,10 @@ $(document).ready(function() {
 
     // count the current form inputs we have (e.g. 2), use that as the new
     // index when inserting a new item (e.g. 2)
-    $collectionHolder.data('index', $collectionHolder.find('input').length);
+    $collectionHolder.data('index', $collectionHolder.find('textarea').length);
 
     $addStepButton.on('click', function(e) {
-        // add a new step form (see next code block)
+        // ajoute une nouvelle étape
         addStepForm($collectionHolder, $newLinkLi);
     });
 });
@@ -61,11 +61,14 @@ function addStepForm($collectionHolder, $newLinkLi) {
     const $newFormLi = $('<li></li>').append(newForm);
     $newLinkLi.before($newFormLi);
 
+    // ajoute le numéro de l'étape que l'on vient d'ajouter
+    $newFormLi.find('input[name="tutorial[steps][' + index + '][number]"]').val(index + 1);
+
     addStepFormDeleteLink($newFormLi);
 }
 //permet la suppression d'une étape
 function addStepFormDeleteLink($stepFormLi) {
-    const $removeFormButton = $('<button type="button">Supprimer cette étape</button>');
+    const $removeFormButton = $('<button type="button" class="btn tutodeco-btn-supp">Supprimer cette étape</button>');
     $stepFormLi.append($removeFormButton);
 
     $removeFormButton.on('click', function(e) {

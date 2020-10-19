@@ -13,12 +13,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/", name="homepage", methods={"POST", "GET"})
      */
 
     public function index(Request $request, TutorialRepository $repository, PaginatorInterface $paginator) {
 
-        $searchForm = $this->createForm(TutorialSearchType::class);
+        $searchForm = $this->createForm(TutorialSearchType::class, null, [
+            'method' => 'GET',
+            'csrf_protection' => false
+        ]);
         $searchForm->handleRequest($request);
 
         $data = $repository->findAll();
@@ -41,7 +44,7 @@ class DefaultController extends AbstractController
             // Define the page parameter
             $request->query->getInt('page', 1),
             // Items per page
-            4
+            6
         );
 
         return $this->render('default/index.html.twig',[
@@ -50,9 +53,17 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    public function tutoNav ()
+    public function tutoNav (Request $request, TutorialRepository $repository)
     {
-        return $this->render("default/_menu.html.twig");
+        $searchForm = $this->createForm(TutorialSearchType::class, null, [
+            'method' => 'GET',
+            'action' => $this->generateUrl('homepage'),
+            'csrf_protection' => false
+        ]);
+
+        return $this->render("default/_menu.html.twig", [
+            'searchForm' => $searchForm->createView()
+        ]);
     }
 
 

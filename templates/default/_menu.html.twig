@@ -7,10 +7,12 @@
     </button>
     <div class="collapse navbar-collapse tutonav-flexbox" id="navbarSupportedContent">
         <div class="tutonav-top">
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn tutodeco-btn my-2 my-sm-0" type="submit">Search</button>
-            </form>
+{#                <input class="form-control mr-sm-2" type="search" placeholder="Mot clé..." aria-label="Search">#}
+            {{ form_start(searchForm, {'attr': { 'class' : 'form-inline my-2 my-lg-0' }}) }}
+                {{ form_row(searchForm.title, {'label': " ", 'attr': {'placeholder': 'mot clé...'}}) }}
+                <button class="btn tutodeco-btn my-2 my-sm-0" type="submit">Rechercher</button>
+            {{ form_end(searchForm) }}
+
             <div>
                 {% if app.user %}
                     Bonjour, {{ app.user.firstName }} - <a href="{{ path('my_account') }}">Mon compte</a> (<a href="{{ path('app_logout') }}">Se déconnecter</a>)
