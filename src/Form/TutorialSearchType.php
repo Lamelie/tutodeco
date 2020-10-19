@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Tutorial;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,6 +14,10 @@ class TutorialSearchType extends AbstractType
     {
         $builder
             ->add('title')
+            ->add('duration', NumberType::class, [
+                'label' => 'Durée max',
+                'required' => false,
+            ])
         ;
     }
 
@@ -21,5 +26,10 @@ class TutorialSearchType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Tutorial::class,
         ]);
+    }
+
+    public function getBlockPrefix()
+    {
+        return '';
     }
 }

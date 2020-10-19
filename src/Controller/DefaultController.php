@@ -30,8 +30,14 @@ class DefaultController extends AbstractController
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
 
             $keyword = $searchForm->getData()->getTitle();
+            $durationMax = $searchForm->getData()->getDuration();
+            if (!$durationMax) {
 
-            $data = $repository->search($keyword);
+                $durationMax = 10000;
+            }
+
+            $data = $repository->searchPlus($keyword, $durationMax);
+            dump($data);
 
             if ($data == null) {
                 $this->addFlash('erreur', 'Aucun tutoriel contenant ce mot clé n\'a été trouvé, essayez en un autre.');

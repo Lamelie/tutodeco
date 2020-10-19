@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Tutorial;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query\Parameter;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -37,18 +39,20 @@ class TutorialRepository extends ServiceEntityRepository
     }
 
     /**
-     * TODO:à terminer
      * @return Tutorial[] Returns an array of Tutorial objects
      */
 
-    public function searchplus($title, $duration, $level, $cost)
+    public function searchPlus($title, $durationMax)
     {
         return $this->createQueryBuilder('t')
             ->andWhere('t.title LIKE :title')
             ->orWhere('t.description LIKE :title')
             ->having('t.validation = 1')
-            ->andWhere('t.duration = :duration')
-            ->setParameter('title', '%'.$title.'%')
+            ->andWhere('t.duration < :durationMax')
+            ->setParameters(new ArrayCollection([
+                new Parameter('title', '%'.$title.'%' ),
+                new Parameter('durationMax', $durationMax)
+            ]))
             ->orderBy('t.id', 'ASC')
             ->getQuery()
             ->execute()
