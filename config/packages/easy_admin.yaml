@@ -7,7 +7,7 @@ easy_admin:
       # the following Twig template can be located anywhere in the application.
       # it can also be added to the twig.form_themes option to use it in the
       # entire application, not only the backend
-      - 'admin/form.html.twig'
+      # - 'admin/form.html.twig'
   user:
     display_name: true
     display_avatar: false
