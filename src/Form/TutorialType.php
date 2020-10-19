@@ -16,7 +16,9 @@ class TutorialType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('imageFile', VichImageType::class)
+            ->add('imageFile', VichImageType::class, [
+                'required' => false
+            ])
             ->add('duration')
             ->add('tags')
             ->add('materials')

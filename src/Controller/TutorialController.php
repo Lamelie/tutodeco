@@ -234,8 +234,11 @@ class TutorialController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $picture = $tutorial->getImageFile();
-            $tutorial->setImageFile($picture);
+            $picturefile = $form['imageFile']->getData();
+            if (!$picturefile) {
+                $picture = $tutorial->getImageFile();
+                $tutorial->setImageFile($picture);
+            }
             $em->persist($tutorial);
             $em->flush();
             return $this->redirectToRoute('tutorial_index');
