@@ -1,4 +1,17 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+        <h2>Vos informations personnelles</h2>
+        {{ form_row(form.first_name) }}
+        {{ form_row(form.last_name) }}
+        {{ form_row(form.email) }}
+        <h2>En savoir un peu plus sur vous ! </h2>
+        {{ form_row(form.nickname, {
+            label: 'Nom de décorateur (si vous voulez utiliser un autre nom que votre vrai nom)'
+        }) }}
+        {{ form_row(form.imageFile, {
+            label: 'Photo de profil'
+        }) }}
+        {{ form_row(form.description, {
+            label: 'Présentez-vous en quelques mots !'
+        }) }}
+    <button class="btn tutodeco-btn">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form, {'render_rest': false}) }}

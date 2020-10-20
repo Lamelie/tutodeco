@@ -8,17 +8,21 @@
 
         <h1>Mon Compte</h1>
 
-        <p>{{ app.user.firstName }}, voici votre compte.</p>
+        <p>{{ app.user.firstName }}, voici votre compte.
+        <a href="{{ path('user_show', {'slug': app.user.slug}) }}">Voir mon profil !</a> ou <a href="{{ path('user_edit', {'id': app.user.id}) }}">Editer mon profil !</a></p>
 
         <ul class="nav nav-tabs myaccount-tab col-md-6" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <a class="nav-link active" id="todo-tab" data-toggle="tab" role="tab" aria-controls="todo" href="#todo">Ma todo-list ({{ todos|length }})</a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link" id="done-tab" data-toggle="tab" role="tab" href="#done" aria-controls="done">Ma done-list ({{ dones|length }})</a>
+                <a class="nav-link" id="done-tab" data-toggle="tab" role="tab" href="#done" aria-controls="done">Tutos réalisés ({{ dones|length }})</a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link" id="tutos-tab" data-toggle="tab" role="tab" href="#tutos" aria-controls="tutos">Mes tutos</a>
+                <a class="nav-link" id="tutos-tab" data-toggle="tab" role="tab" href="#tutos" aria-controls="tutos">Mes tutos ({{ tutos|length }})</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="tutos-tab" data-toggle="tab" role="tab" href="#abos" aria-controls="tutos">Mes abonnements ({{ app.user.userTos|length }})</a>
             </li>
         </ul>
 
@@ -28,8 +32,8 @@
                 {% for userTutorial in todos %}
                         {% include "default/_tutocard.html.twig" with { 'tutorial': userTutorial.tutorial } only %}
                     {% else %}
-                        <p>Vous n'avez pas encore ajouté de tuto à votre todo-list ! </p>
-                        <a href="{{ path('tutorial_index') }}">Voir les tutos</a>
+                        <p>Vous n'avez pas encore ajouté de tuto à votre todo-list !
+                        <a href="{{ path('tutorial_index') }}">Voir les tutos</a></p>
                     {% endfor %}
                 </div>
             </div>
@@ -38,14 +42,34 @@
                     {% for userTutorial in dones %}
                         {% include "default/_tutocard.html.twig" with { 'tutorial': userTutorial.tutorial } only %}
                     {% else %}
-                        <p>Vous n'avez pas encore réalisé des tutos ! </p>
-                        <a data-toggle="tab" role="tab" aria-controls="todo" href="#todo">Voir ma todo-list</a>
+                        <p>Vous n'avez pas encore réalisé des tutos !
+                        <a data-toggle="tab" role="tab" aria-controls="todo" href="#todo">Voir ma todo-list</a></p>
                     {% endfor %}
                 </div>
             </div>
             <div id="tutos" class="tab-pane fade tuto-tab-content" role="tabpanel" aria-labelledby="tutos-tab">
-                <h3>MES TUTOS</h3>
-                <p>Some content in menu 2.</p>
+                <div class="tuto-tab-content">
+                    {% for tutorial in tutos %}
+                        <div>
+                        {% include "default/_tutocard.html.twig" %}
+                        {% if tutorial.validation == 1 %} <p>Ce tuto est publié !</p>
+                        {% else %} <p>Ce tuto n'est pas publié. Il est en train d'être relu par nos équipes !</p>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <p>Vous n'avez pas encore créé de tuto ! Pourquoi ne pas vous lancer maintenant ?
+                            <a href="{{ path('tutorial_new') }}">Créer un tuto</a></p>
+                    {% endfor %}
+                </div>
+            </div>
+            <div id="abos" class="tab-pane fade tuto-tab-content" role="tabpanel" aria-labelledby="tutos-tab">
+                <ul>
+                    {% for userto in app.user.userTos %}
+                    <li><a href="{{ path('user_show', {'slug': userto.slug}) }}">{{ userto.firstName }} {{ userto.lastName }}</a></li>
+                    {% else %}
+                        <p>Vous ne suivez aucun décorateur pour le moment.
+                    {% endfor %}
+                </ul>
             </div>
         </div>
 

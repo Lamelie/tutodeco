@@ -35,9 +35,12 @@
                 <div class="card-title card-tuto-title">
                     <h3>Mes tutos</h3>
                 </div>
-                {% for tutorial in user.tutorials %}
-                    {% include 'default/_tutocard.html.twig' %}
-                {% endfor %}
+                    {% for tutorial in user.tutorials %}
+                <div class="col-lg-4">
+
+                {% include 'default/_tutocard.html.twig' %}
+                </div>
+                    {% endfor %}
             </div>
         </div>
     </div>

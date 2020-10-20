@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TutorialRepository::class)
@@ -43,6 +44,16 @@ class Tutorial
      * @Vich\UploadableField(mapping="tutorial_image", fileNameProperty="imageName", size="imageSize")
      *
      * @var File|null
+     *
+     * @Assert\Image(
+     *     minWidth = 320,
+     *     minWidthMessage = "La largeur de l'image est insuffisante ({{ width }}px). La taille minimum requise est de {{ min_width }}px",
+     *     minHeight = 240,
+     *     minHeightMessage="La hauteur de l'image est insuffisante ({{ height }}px). La taille minimum requise est de {{ min_height }}px",
+     *     mimeTypes = {"image/jpeg", "image/png","image/jpg", "image/gif"},
+     *     mimeTypesMessage = "Seules les images en .jpeg .png .jpg et .gif sont acceptées"
+     *
+     * )
      */
     private $imageFile;
 

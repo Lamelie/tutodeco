@@ -30,15 +30,6 @@ class RegistrationFormType extends AbstractType
             ->add('email', EmailType::class, [
                 'required' => true,
             ])
-            ->add('nickname', TextType::class, [
-                'required' => false,
-            ])
-            ->add('description', TextareaType::class, [
-                'required' => false,
-            ])
-            ->add('imageFile', VichImageType::class, [
-                'required' => false,
-            ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [

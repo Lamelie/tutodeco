@@ -109,5 +109,5 @@ class UserTutorial
         return $this;
     }
 
-
+    
 }

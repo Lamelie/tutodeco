@@ -10,9 +10,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\String\Slugger\AsciiSlugger as Slugger;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-
+use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 
 /**
@@ -71,6 +71,16 @@ class User implements UserInterface
      * @Vich\UploadableField(mapping="user_picture", fileNameProperty="pictureName", size="imageSize")
      *
      * @var File|null
+     *
+     * @Assert\Image(
+     *     minWidth = 320,
+     *     minWidthMessage = "La largeur de l'image est insuffisante ({{ width }}px). La taille minimum requise est de {{ min_width }}px",
+     *     minHeight = 240,
+     *     minHeightMessage="La hauteur de l'image est insuffisante ({{ height }}px). La taille minimum requise est de {{ min_height }}px",
+     *     mimeTypes = {"image/jpeg", "image/png","image/jpg", "image/gif"},
+     *     mimeTypesMessage = "Seules les images en .jpeg .png .jpg et .gif sont acceptées"
+     *
+     * )
      */
     private $imageFile;
 
@@ -121,6 +131,7 @@ class User implements UserInterface
     /**
      * TODO:faire le SLUG
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Gedmo\Slug(fields={"lastname"})
      */
     private $slug;
 

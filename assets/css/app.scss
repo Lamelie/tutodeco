@@ -22,6 +22,7 @@ CSS général pour le site
 body {
     background-color: #E5E5E5;
     font-family: "Ropa Sans", "Helvetica Neue", sans-serif;
+    padding-bottom: 6rem;
 }
 
 a {
@@ -30,6 +31,11 @@ a {
         color: #558784;
     }
 }
+
+p {
+    padding: 0.5rem;
+}
+
 
 .custom-file-label::after {
     content: "Rechercher";
@@ -253,12 +259,6 @@ a {
     }
 }
 
-.tuto-tab-content {
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-}
-
 .card-tuto {
     background-color: transparent;
     border: none;
@@ -409,9 +409,19 @@ a {
     justify-content: space-around;
 }
 
+.tuto-tab-content {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
 /* pour tablettes en mode paysage (768px et plus) */
 @media only screen and (min-width: 768px) {
-
+    .tuto-tab-content {
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+    }
 }
 
 /* CREER UN TUTORIEL */

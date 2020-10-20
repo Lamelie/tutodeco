@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Tutorial;
+
 use App\Entity\User;
 use App\Repository\TutorialRepository;
+use App\Repository\UserRepository;
 use App\Repository\UserTutorialRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,7 +17,7 @@ class MyAccountController extends AbstractController
      * @Route("/myaccount", name="my_account", methods={"GET"})
      * @IsGranted("ROLE_USER")
      */
-    public function index(UserTutorialRepository $userTutorialRepository)
+    public function index(UserTutorialRepository $userTutorialRepository, TutorialRepository $tutorialRepository)
     {
         $user = $this->getUser();
 
@@ -30,9 +31,15 @@ class MyAccountController extends AbstractController
             'todo' => 1,
         ]);
 
+        $userTutorials = $tutorialRepository->findby([
+            'user'=>$user
+        ]);
+
+
         return $this->render('my_account/index.html.twig', [
             'todos' => $todos,
             'dones' => $tutodones,
+            'tutos' => $userTutorials,
         ]);
     }
 }

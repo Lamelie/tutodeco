@@ -6,10 +6,13 @@
     <div class="tuto-container">
         <h1>Tous les tutos</h1>
         <div class="row">
-            {% for tutorial in tutorials %}
-            {% include 'default/_tutocard.html.twig' %}
+                {% for tutorial in tutorials %}
+            <div class="col-lg-4">
 
-            {% endfor %}
+            {% include 'default/_tutocard.html.twig' %}
+            </div>
+
+                {% endfor %}
         </div>
     </div>
 
