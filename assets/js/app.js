@@ -153,6 +153,29 @@ $(document).ready(function () {
     $todoLinks.on('click', onClickBtnTodo);
 })
 
+//faire apparaitre le nom du fichier dans l'input (form)
+
+const input = $('.custom-file-input')
+
+
+input.on('change', function(event) {
+    const inputFile = event.currentTarget;
+    //si pas de fichier dans l'input
+    if(inputFile.files.length===0){
+        //trouve le parent de l'input
+        $(inputFile).parent()
+            //trouve le label
+            .find('.custom-file-label')
+            .html("Selectionner une image");
+    }else {
+        //si un fichier téléchargé
+        $(inputFile).parent()
+            .find('.custom-file-label')
+            //remplace le placeholder par le nom du fichier
+            .html(inputFile.files[inputFile.files.length-1].name);
+    }
+});
+
 
 
 
