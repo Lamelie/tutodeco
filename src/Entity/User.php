@@ -79,7 +79,6 @@ class User implements UserInterface
      *     minHeightMessage="La hauteur de l'image est insuffisante ({{ height }}px). La taille minimum requise est de {{ min_height }}px",
      *     mimeTypes = {"image/jpeg", "image/png","image/jpg", "image/gif"},
      *     mimeTypesMessage = "Seules les images en .jpeg .png .jpg et .gif sont acceptées"
-     *
      * )
      */
     private $imageFile;
@@ -129,9 +128,7 @@ class User implements UserInterface
     private $tutorials;
 
     /**
-     * TODO:faire le SLUG
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Gedmo\Slug(fields={"lastname"})
      */
     private $slug;
 

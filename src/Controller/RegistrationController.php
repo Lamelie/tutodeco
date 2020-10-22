@@ -14,6 +14,8 @@ use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use Symfony\Component\String\Slugger\AsciiSlugger;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
@@ -31,14 +33,17 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
     {
         $user = new User();
+        $slugger = new AsciiSlugger();
+
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setRoles(["ROLE_USER"]);
-            $user->setNickname($form['last_name']->getData().$form['first_name']->getData());
-            $user->setSlug($user->getNickname());
+            $user->setNickname($form['last_name']->getData().'-'.$form['first_name']->getData());
+            $slug = $slugger->slug($form['last_name']->getData().'-'.$form['first_name']->getData(), '-')->lower();
+            $user->setSlug($slug);
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
