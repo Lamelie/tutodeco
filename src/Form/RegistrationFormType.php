@@ -53,10 +53,10 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('captcha', ReCaptchaType::class, [
+/*            ->add('captcha', ReCaptchaType::class, [
                 'mapped' => false,
-                'type' => 'invisible' // (invisible, checkbox)
-            ]);
+                'type' => 'checkbox' // (invisible, checkbox)
+            ]);*/
         ;
     }
 
@@ -64,8 +64,6 @@ class RegistrationFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'attr', [
-                'novalidate' => true]
         ]);
     }
 }
