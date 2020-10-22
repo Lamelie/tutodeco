@@ -3,6 +3,7 @@
 {% block title %}Tuto-Déco {{ user.firstName }} {{ user.lastName }}{% endblock %}
 
 {% block body %}
+    {% if user.getRoles == ['ROLE_USER','ROLE_DECO'] %}
     <div class="row">
         <div class="col-lg-8">
             <div class="card card-border card-profile" >
@@ -44,7 +45,10 @@
             </div>
         </div>
     </div>
-
-
+    {% else %}
+        {% if user == app.user %}
+        <p>Vous n'avez pas encore publié de tuto pour avoir une page décorateur ! Pourquoi ne pas se lancer maintenant ? <a href="{{ path('tutorial_new') }}"> Créer un tuto !</a></p>
+        {% endif %}
+    {% endif %}
 
 {% endblock %}

@@ -3,6 +3,9 @@
 {% block title %}Mon Compte{% endblock %}
 
 {% block body %}
+    {% if app.user.isVerified == false %}
+    <p>Attention, vous n'avez pas encore confirmé votre email. Merci de vérifier votre boite mail et de valider votre adresse mail.</p>
+    {% else %}
 <div class="row">
     <div class="tuto-container col-md-12">
 
@@ -49,17 +52,19 @@
             </div>
             <div id="tutos" class="tab-pane fade tuto-tab-content" role="tabpanel" aria-labelledby="tutos-tab">
                 <div class="tuto-tab-content">
+                    <div class="row">
                     {% for tutorial in tutos %}
-                        <div>
-                        {% include "default/_tutocard.html.twig" %}
+                        <div class="col-lg-4 tuto-validinfo">
                         {% if tutorial.validation == 1 %} <p>Ce tuto est publié !</p>
-                        {% else %} <p>Ce tuto n'est pas publié. Il est en train d'être relu par nos équipes !</p>
-                            {% endif %}
+                        {% else %} <p class="tuto-validinfo-text">Ce tuto n'est pas publié. Il est en train d'être relu par nos équipes !</p>
+                        {% endif %}
+                        {% include "default/_tutocard.html.twig" %}
                         </div>
                     {% else %}
                         <p>Vous n'avez pas encore créé de tuto ! Pourquoi ne pas vous lancer maintenant ?
                             <a href="{{ path('tutorial_new') }}">Créer un tuto</a></p>
                     {% endfor %}
+                    </div>
                 </div>
             </div>
             <div id="abos" class="tab-pane fade tuto-tab-content" role="tabpanel" aria-labelledby="tutos-tab">
@@ -75,5 +80,6 @@
 
     </div>
 </div>
+    {% endif %}
 
     {% endblock %}

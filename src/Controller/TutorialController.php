@@ -55,6 +55,11 @@ class TutorialController extends AbstractController
             $tutorial->setUser($this->getUser());
             $tutorial->setValidation(0);
             $entityManager->persist($tutorial);
+
+            $user = $tutorial->getUser();
+            $user->setRoles(['ROLE_USER','ROLE_DECO']);
+            $entityManager->persist($user);
+
             $entityManager->flush();
             return $this->redirectToRoute('tutorial_index');
 
@@ -74,6 +79,9 @@ class TutorialController extends AbstractController
      */
     public function show(Tutorial $tutorial): Response
     {
+        if ($tutorial->getValidation() == 0 ) {
+            return $this->redirectToRoute("homepage");
+        }
         $em = $this->getDoctrine();
 
         $steps = $em->getRepository(Step::class)->findBy(['tutorial' => $tutorial]);
@@ -227,13 +235,16 @@ class TutorialController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="tutorial_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function edit(Request $request, Tutorial $tutorial): Response
     {
+        //empeche la modification si l'utilisateur n'est pas l'auteur et si le tutoriel a déjà été validé
+        if ($this->getUser() != $tutorial->getUser() or $tutorial->getValidation() == 1) {
+            return $this->redirectToRoute("homepage");
+        }
         $form = $this->createForm(TutorialType::class, $tutorial);
         $form->handleRequest($request);
-
-        //TODO : faire en sorte que les formulaires puissent être édités sans avoir à re uploader une image !!
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();

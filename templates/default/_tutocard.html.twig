@@ -4,7 +4,7 @@
                 <div class="card-tuto-title">
                     <h3 class="card-tuto-title-text">{{ tutorial.title }}
                     </h3>
-                    {% if app.user == tutorial.user %}<a href="{{ path('tutorial_edit', {'id' : tutorial.id}) }}"><i class="fas fa-edit card-tuto-edit"></i></a>
+                    {% if app.user == tutorial.user and tutorial.validation == 0%}<a href="{{ path('tutorial_edit', {'id' : tutorial.id}) }}"><i class="fas fa-edit card-tuto-edit"></i></a>
                     {% endif %}
                 </div>
                 <a href="{{ path('tutorial_show', {'id': tutorial.id}) }}">
