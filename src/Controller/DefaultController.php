@@ -31,15 +31,14 @@ class DefaultController extends AbstractController
 
             $keyword = $searchForm->getData()->getTitle();
             $durationMax = $searchForm->getData()->getDuration();
+            $level = $searchForm->getData()->getLevel();
+            $cost = $searchForm->getData()->getCost();
             if (!$durationMax) {
                 $durationMax = 10000;
             }
 
-            $data = $repository->searchPlus($keyword, $durationMax);
+            $data = $repository->searchPlus($keyword, $durationMax, $level, $cost);
 
-            if ($data == null) {
-                $this->addFlash('erreur', 'Aucun tutoriel contenant ce mot clé n\'a été trouvé, essayez en un autre.');
-            }
         }
 
         // Paginer les résultats de la requete

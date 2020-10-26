@@ -5,22 +5,41 @@
 <div class="row tuto-container flex-column">
     <h1>Bienvenue sur TutoDeco</h1>
     <p>Commencez par une recherche ! </p>
-    <div class="col-lg-4">
-        {{ form_start(searchForm) }}
-        {{ form_row(searchForm.title, {'label': "Mot clé", 'attr': {'placeholder': 'mot clé...'}}) }}
-        {{ form_row(searchForm.duration) }}
-        <button class="btn tutodeco-btn my-2 my-sm-0">Rechercher</button>
-        {{ form_end(searchForm) }}
+    <div class="col-md-12">
+        <form method="get">
+            <div class="row">
+            <div class="form-row">
+                {{ form_start(searchForm) }}
+                    <div class="tuto-form">
+                        {{ form_row(searchForm.title, {'attr': {'placeholder': 'Pot à crayon, tête de lit...'}}) }}
+                    </div>
+                    <div class="tuto-form">
+                        {{ form_row(searchForm.level, {'label' : 'Niveau'}) }}
+                    </div>
+                    <div class="tuto-form">
+                        {{ form_row(searchForm.cost, {'label' : 'Coût'}) }}
+                    </div>
+                    <div class="tuto-form">
+                        {{ form_row(searchForm.duration, {'attr': {'placeholder': '60, 120...'}}) }}
+                    </div>
+                </div>
+                <div class="tuto-form-btn">
+                    <button class="btn tutodeco-btn">Rechercher</button>
+                </div>
+            </div>
+            {{ form_end(searchForm) }}
+        </form>
     </div>
 
     <section id="content">
+        <h2 class="m-2">Tutoriels ({{ tutorials|length }})</h2>
         <div class="row">
 
-        {% for tutorial in tutorials %}
-            <div class="col-lg-4">
-            {% include 'default/_tutocard.html.twig' %}
-            </div>
-        {% endfor %}
+            {% for tutorial in tutorials %}
+                <div class="col-lg-4">
+                {% include 'default/_tutocard.html.twig' %}
+                </div>
+            {% endfor %}
         </div>
 
     </section>

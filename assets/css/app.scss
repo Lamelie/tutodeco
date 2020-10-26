@@ -59,6 +59,7 @@ p {
     background-color: #6EB5B1;
     border: none;
     padding: 0.2rem 1rem;
+    margin: 0.5rem;
     border-radius: 1rem;
     color: white;
     &:hover, &:active {
@@ -362,9 +363,19 @@ p {
         &:hover,:active,:focus {
             color: #558784;
             text-decoration: none;
+            box-shadow: none;
         }
     }
 }
+
+.tuto-form {
+    padding: 0 1rem;
+    &-btn {
+        display: flex;
+        align-items: center;
+    }
+}
+
 
 /* pour tablettes en mode paysage (768px et plus) */
 @media only screen and (min-width: 768px) {
@@ -419,6 +430,14 @@ p {
             &:last-child {
                 margin-bottom: unset;
             }
+        }
+    }
+    .tuto-form {
+        padding: 1rem;
+        margin: 1rem;
+        &-btn {
+            display: flex;
+            align-items: center;
         }
     }
 }

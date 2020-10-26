@@ -42,16 +42,20 @@ class TutorialRepository extends ServiceEntityRepository
      * @return Tutorial[] Returns an array of Tutorial objects
      */
 
-    public function searchPlus($title, $durationMax)
+    public function searchPlus($title, $durationMax, $level, $cost)
     {
         return $this->createQueryBuilder('t')
             ->andWhere('t.title LIKE :title')
             ->orWhere('t.description LIKE :title')
+            ->andWhere('t.level = :level')
+            ->andWhere('t.cost = :cost')
             ->having('t.validation = 1')
             ->andWhere('t.duration < :durationMax')
             ->setParameters(new ArrayCollection([
                 new Parameter('title', '%'.$title.'%' ),
-                new Parameter('durationMax', $durationMax)
+                new Parameter('durationMax', $durationMax),
+                new Parameter('level', $level),
+                new Parameter('cost', $cost)
             ]))
             ->orderBy('t.id', 'ASC')
             ->getQuery()
