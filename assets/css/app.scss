@@ -189,6 +189,11 @@ p {
     &-follow {
         padding: 5px;
     }
+    &-image {
+        width: 20rem;
+        height: 15rem;
+        object-fit: cover;
+    }
 }
 
 .card-tuto-list-image {
@@ -302,6 +307,10 @@ p {
         display: flex;
         justify-content: space-around;
         font-size: 2rem;
+        color: #6EB5B1;
+        &-nb, &-nb:hover {
+            color: #6EB5B1;
+        }
     }
     &-step {
         padding-left: 0;
@@ -343,6 +352,10 @@ p {
     position: absolute;
     right: 40%;
     bottom: 50%;
+}
+
+.tuto-comment {
+    margin: 1rem;
 }
 
 /* pour tablettes en mode paysage (768px et plus) */

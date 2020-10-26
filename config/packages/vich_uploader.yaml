@@ -6,7 +6,14 @@ vich_uploader:
             uri_prefix: /uploads/tutorials
             upload_destination: '%kernel.project_dir%/public/uploads/tutorials'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            delete_on_remove: true
         user_picture:
             uri_prefix: /uploads/users
             upload_destination: '%kernel.project_dir%/public/uploads/users'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            delete_on_remove: true
+        comment_picture:
+            uri_prefix: /uploads/comments
+            upload_destination: '%kernel.project_dir%/public/uploads/comments'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            delete_on_remove: true

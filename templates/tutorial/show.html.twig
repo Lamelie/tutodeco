@@ -22,7 +22,7 @@
                             <a href="{{ path('user_show', {'slug': tutorial.user.slug}) }}">{{ tutorial.user }}</a>
                             {% endif %}
                         </p>
-                        {% if app.user == tutorial.user %}
+                        {% if app.user == tutorial.user and tutorial.validation == 0%}
                             <p class="card-tuto-text">
                                 <a href="{{ path('tutorial_edit', {'id' : tutorial.id}) }}"><i class="fas fa-edit"></i></a>
                             </p>
@@ -109,7 +109,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-12">
+        <div class="col-md-12">
             <ul class="card-tuto-step">
                 {% for step in steps %}
                     <div class="card card-border">
@@ -125,7 +125,39 @@
                     </div>
                 {% endfor %}
             </ul>
+            <form method="post" enctype="multipart/form-data">
+                <div class="card card-border">
+                    <div class="card-title card-tuto-title">
+                        <h5>Ajouter un commentaire</h5>
+                    </div>
+                    <div class="tuto-comment">
+                        {% if app.user %}
+                            {% include 'comment/_form.html.twig' %}
+                        {% else %}
+                            <p><a href="{{ path('app_login') }}">Identifiez-vous</a> ou <a href="{{ path('app_register') }}">inscrivez-vous</a> pour ajouter un commentaire</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </form>
+            <section class="card card-border">
+                {% for comment in tutorial.comments %}
+                    <article class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <small>Ecrit par {{ comment.user }}, il y a </small>
+                        </div>
+                        <div class="d-flex flex-column flex-lg-row">
+                            <li class="card-body card-tuto-body-step">
+                                <p class="card-tuto-text">{{ comment.content}}</p>
+                            </li>
+                            {% if comment.picture %}
+                                <img src="{{ asset('uploads/comments/' ~ comment.picture) }}" alt="{{ comment.picture }}" class="img-fluid card-tuto-step-image">
+                            {% endif %}
+                        </div>
+                    </article>
+                {% endfor %}
+            </section>
         </div>
+
     </div>
 
 

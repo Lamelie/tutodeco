@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Step;
 use App\Entity\Tutorial;
 use App\Entity\UserTutorial;
+use App\Form\CommentType;
 use App\Form\TutorialType;
 use App\Repository\TutorialRepository;
 use App\Repository\UserTutorialRepository;
@@ -75,20 +77,39 @@ class TutorialController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="tutorial_show", methods={"GET"})
+     * @Route("/{id}", name="tutorial_show", methods={"GET", "POST"})
      */
-    public function show(Tutorial $tutorial): Response
+    public function show(Tutorial $tutorial, Request $request): Response
     {
+        //redirection si le tutoriel n'est pas validé.
         if ($tutorial->getValidation() == 0 ) {
             return $this->redirectToRoute("homepage");
         }
         $em = $this->getDoctrine();
 
+        //ajout des étapes
         $steps = $em->getRepository(Step::class)->findBy(['tutorial' => $tutorial]);
+
+        //ajout du formulaire de commentaires
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $comment->setUser($this->getUser());
+            $comment->setTutorial($tutorial);
+
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('tutorial_show',['id' => $tutorial->getId()]);
+        }
 
         return $this->render('tutorial/show.html.twig', [
             'tutorial' => $tutorial,
             'steps' => $steps,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -182,32 +203,40 @@ class TutorialController extends AbstractController
             'message' => "unauthorized"
         ], 403);
 
+        //si le tutoriel est déjà en Todolist : suppression de la todolist
         if($tutorial->isTodoByUser($user)){
+            //requete permettant de supprimer de la liste des Todos.
             $todo = $userTutorialRepository->findOneBy([
                 'tutorial'=> $tutorial,
                 'user'=>$user,
                 'todo' => 1,
             ]);
+            //suppression
             $manager->remove($todo);
             $manager->flush();
 
+            //envoi d'une requête http en format json
             return $this->json([
                 'code' => 200,
                 'message' => "todo supprimé",
+                //compte le nombre de todos pour ce tutoriel
                 'todos' => $userTutorialRepository->count([
                     'tutorial'=> $tutorial,
                     'todo' => 1
                 ]),
+                //compte le nombre de faits pour ce tutoriel
                 'dones' => $userTutorialRepository->count([
                     'tutorial'=> $tutorial,
                     'done' => 1
                 ])
             ], 200);
         }
+        //si le tutoriel n'était pas en todolist : ajout en todolist
         $todo = new UserTutorial();
         $todo->setTutorial($tutorial)
             ->setUser($user)
             ->setTodo(1);
+        //si le tutoriel était marqué comme fait : suppression de la liste des faits.
         if($tutorial->isDoneByUser($user)){
             $done = $userTutorialRepository->findOneBy([
                 'tutorial'=> $tutorial,
@@ -219,13 +248,16 @@ class TutorialController extends AbstractController
         $manager->persist($todo);
         $manager->flush();
 
+        //envoi d'une requête http en format json
         return $this->json([
             "code"=>200,
             "message"=>"todo ajouté",
+            //compte nombre de faits pour ce tuto
             'dones' => $userTutorialRepository->count([
                 'tutorial'=> $tutorial,
                 'done' => 1
             ]),
+            //compte nombre de todos pour ce tuto
             'todos' => $userTutorialRepository->count([
                 'tutorial'=> $tutorial,
                 'todo' => 1

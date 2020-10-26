@@ -18,6 +18,7 @@ class MyAccountController extends AbstractController
      */
     public function index(UserTutorialRepository $userTutorialRepository, TutorialRepository $tutorialRepository)
     {
+
         $user = $this->getUser();
 
         $tutodones = $userTutorialRepository->findBy([

@@ -32,25 +32,20 @@ class DefaultController extends AbstractController
             $keyword = $searchForm->getData()->getTitle();
             $durationMax = $searchForm->getData()->getDuration();
             if (!$durationMax) {
-
                 $durationMax = 10000;
             }
 
             $data = $repository->searchPlus($keyword, $durationMax);
-            dump($data);
 
             if ($data == null) {
                 $this->addFlash('erreur', 'Aucun tutoriel contenant ce mot clé n\'a été trouvé, essayez en un autre.');
             }
         }
 
-        // Paginate the results of the query
+        // Paginer les résultats de la requete
         $tutorials = $paginator->paginate(
-        // Doctrine Query, not results
             $data,
-            // Define the page parameter
             $request->query->getInt('page', 1),
-            // Items per page
             6
         );
 
@@ -60,6 +55,11 @@ class DefaultController extends AbstractController
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param TutorialRepository $repository
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function tutoNav (Request $request, TutorialRepository $repository)
     {
         $searchForm = $this->createForm(TutorialSearchType::class, null, [
