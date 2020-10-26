@@ -42,7 +42,7 @@
 
                 </div>
                 <div class="card-tuto-picto">
-                    <a href="{{ path('tutorial_todo', {'id' : tutorial.id}) }}" class="btn btn-link js-todo-link {% if app.user == tutorial.user %} disabled {% endif %}" {% if app.user %}data-toggle="popover" data-content="Ajouté en todo" data-delay={"show":100,"hide":100} {% endif %}>
+                    <a href="{{ path('tutorial_todo', {'id' : tutorial.id}) }}" class="btn btn-link tuto-commentnb js-todo-link {% if app.user == tutorial.user %} disabled {% endif %}" {% if app.user %}data-toggle="popover" data-content="Ajouté en todo" data-delay={"show":100,"hide":100} {% endif %}>
                         <span class="js-nbTodo">
                             {{ tutorial.nbTodo }}
                         </span>
@@ -57,8 +57,8 @@
                             <i class="far fa-clipboard card-tuto-picto"></i>
                         {% endif %}
                     </a>
-                    <a href="{{ path('tutorial_done', {'id' : tutorial.id}) }}" class="btn btn-link js-done-link {% if app.user == tutorial.user %} disabled {% endif %}">
-                        <span class="js-nbDone">
+                    <a href="{{ path('tutorial_done', {'id' : tutorial.id}) }}" class="btn btn-link tuto-commentnb js-done-link {% if app.user == tutorial.user %} disabled {% endif %}">
+                        <span class="js-nbDone ">
                             {{ tutorial.nbDone }}
                         </span>
                         {% if app.user %}
