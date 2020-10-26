@@ -1,7 +1,7 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
     form_themes:
-        - 'security/_captcha_form.html.twig'
+        #- 'security/_captcha_form.html.twig'
         - 'bootstrap_4_layout.html.twig'
-    globals:
-        gg_recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
+    #globals:
+        #gg_recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
