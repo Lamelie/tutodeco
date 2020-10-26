@@ -199,6 +199,40 @@ class Comment
         return $this->updatedAt;
     }
 
+    public function getCreatedAtFormat ()
+    {
+        return $this->formatTime($this->getCreatedAt());
+    }
+
+    private function formatTime($time): string
+    {
+        $date1 = new \DateTime("now");
+        $date2 = $time;
+        $interval = $date2->diff($date1);
+        $days = $interval->format('%a');
+        $hours = $interval->format("%h");
+        $minutes = $interval->format("%i");
+        $secondes = $interval->format("%s");
+        $formattedTime = "";
+
+        if ($days > 0)
+            $formattedTime = "$days jour" . (($days > 1) ? "s" : "");
+
+        elseif ($hours > 0) {
+            $formattedTime = "$hours heure" . (($hours > 1) ? "s" : "");
+        }
+
+        elseif ($minutes > 0) {
+            $formattedTime = "$minutes minute" . (($minutes > 1) ? "s" : "");
+        }
+
+        elseif ($secondes > 0) {
+            $formattedTime = "$secondes seconde" . (($secondes>1)? "s" : "");
+        }
+
+        return $interval->format($formattedTime);
+    }
+
     /**
      * @ORM\PrePersist()
      */

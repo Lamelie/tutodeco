@@ -356,6 +356,14 @@ p {
 
 .tuto-comment {
     margin: 1rem;
+    &nb {
+        font-size: 1rem;
+        color : #6EB5B1;
+        &:hover,:active,:focus {
+            color: #558784;
+            text-decoration: none;
+        }
+    }
 }
 
 /* pour tablettes en mode paysage (768px et plus) */
