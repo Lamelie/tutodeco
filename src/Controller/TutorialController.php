@@ -83,7 +83,7 @@ class TutorialController extends AbstractController
     {
         //redirection si le tutoriel n'est pas validé.
         if ($tutorial->getValidation() == 0 ) {
-            return $this->redirectToRoute("homepage");
+            throw $this->createNotFoundException('Ce tutoriel n\'est pas validé');
         }
         $em = $this->getDoctrine();
 
@@ -132,15 +132,18 @@ class TutorialController extends AbstractController
             'message' => "unauthorized"
         ], 403);
 
+        //Recherche de la ligne correspondant à ce "fait" dans userTutorial
         if($tutorial->isDoneByUser($user)){
             $done = $userTutorialRepository->findOneBy([
                 'tutorial'=> $tutorial,
                 'user'=>$user,
                 'done' => 1,
             ]);
+            //suppression de la donnée
             $manager->remove($done);
             $manager->flush();
 
+            //envoi de l'information via requête HTTP
             return $this->json([
                 'code' => 200,
                 'message' => "done supprimé",
@@ -185,7 +188,7 @@ class TutorialController extends AbstractController
     }
 
     /**
-     * Permet de mettre ou retirer un tutoriel de sa todo list
+     * Permet de mettre ou retirer un tutoriel de sa todo-list
      *
      * @Route("/{id}/todo", name="tutorial_todo")
      *
@@ -273,7 +276,7 @@ class TutorialController extends AbstractController
     {
         //empeche la modification si l'utilisateur n'est pas l'auteur et si le tutoriel a déjà été validé
         if ($this->getUser() != $tutorial->getUser() or $tutorial->getValidation() == 1) {
-            return $this->redirectToRoute("homepage");
+            throw $this->createAccessDeniedException("Vous n'avez pas le droit d'accéder à cette page");
         }
         $form = $this->createForm(TutorialType::class, $tutorial);
         $form->handleRequest($request);

@@ -51,7 +51,7 @@ function addStepForm($collectionHolder, $newLinkLi) {
     let newForm = prototype;
 
     // remplace '__name__' dans le prototype HTML
-    // au lieu d'avoir le nombre de l'index
+    // au lieu d'avoir le numéro de l'index
     newForm = newForm.replace(/__name__/g, index);
 
     // augmente l'index de un pour la prochaine étape
@@ -106,13 +106,16 @@ $(document).ready(function () {
         //récupère les données envoyées en Json au clic sur le bouton.
         axios.get(url).then(function (response) {
             const dones = response.data.dones;
+            //modifie le texte présent dans "nbDone"
             nbDone.text(dones);
 
+            //change les classes des icônes
             if(icone.hasClass('fas')){
                 icone.removeClass('fas').addClass('far')
             } else {
                 icone.removeClass('far').addClass('fas')
             }
+            //renvoie une erreur http et modifie l'url en cas d'erreur
         }).catch(function (error) {
             if (error.response.status === 403) {
                 window.location.href = '/login'
