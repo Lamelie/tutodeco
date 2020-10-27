@@ -36,7 +36,6 @@ p {
     padding: 0.5rem;
 }
 
-
 .custom-file-label::after {
     content: "Rechercher";
 }
@@ -100,6 +99,19 @@ p {
                 display: none;
             }
         }
+    }
+}
+
+/* PAGE DE LOGIN */
+
+.login-container {
+    background-color: white;
+    max-width: 320px;
+    &-h1 {
+        background-color: #6EB5B1;
+        color: white;
+        padding-left: 5px;
+        text-align: center;
     }
 }
 
