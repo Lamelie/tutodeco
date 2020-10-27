@@ -14,18 +14,39 @@ easy_admin:
   entities:
     Tutorial :
       class: App\Entity\Tutorial
-      form:
+      list:
+        actions: ['-new']
+        fields:
+          - title
+          - description
+          - validation
+          - createdAt
+      edit:
         fields:
           - { type: 'tab', label: 'Informations'}
-          - id
           - title
           - description
           - {type: 'tab', label: 'étapes'}
           - {property: 'steps', label: 'étapes', type: 'collection', type_options: {entry_type: 'App\Form\StepType', by_reference: false}}
-#      templates :
-#        edit: 'admin/form.html.twig'
+
+    User :
+      class: App\Entity\User
+      list:
+        actions: ['-new']
+        fields:
+          - lastName
+          - firstName
+          - nickname
+          - roles
+          - { property: 'pictureName', type: 'image', base_path: '/uploads/users' }
+      edit:
+        fields:
+          - {property: 'lastname', type: 'text'}
+          - {property: 'firstname', type: 'text'}
+          - nickname
+          - { property: 'roles', type: 'choice', type_options: {mapped: true, expanded: true, multiple: true, choices: { 'Utilisateur': 'ROLE_USER', 'Administrateur': 'ROLE_ADMIN', 'Décorateur':'ROLE_DECO' }}}
+          - { property: 'imageFile', type: 'vich_image' }
     # change the following to the namespaces of your own entities
     #- App\Entity\Tag
-    #- App\Entity\User
     #- App\Entity\Material
     #- App\Entity\Tool
