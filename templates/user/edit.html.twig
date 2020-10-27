@@ -3,9 +3,15 @@
 {% block title %}Modifier mes informations{% endblock %}
 
 {% block body %}
+    <section class="container tuto-container">
+
+
+
     <h1>Modifier mes informations</h1>
 
     {{ include('user/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+        <a href="{{ path('my_account') }}" type="button" class="btn tutodeco-btn">Retour au profil</a>
 
     {{ include('user/_delete_form.html.twig') }}
+    </section>
 {% endblock %}

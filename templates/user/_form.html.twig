@@ -1,9 +1,14 @@
 {{ form_start(form) }}
         <h2>Vos informations personnelles</h2>
-        {{ form_row(form.first_name) }}
-        {{ form_row(form.last_name) }}
+        {{ form_row(form.first_name, {
+            label: 'Prénom'
+        }) }}
+        {{ form_row(form.last_name, {
+            label: 'Nom de famille'
+        }) }}
         {{ form_row(form.email) }}
         <h2>En savoir un peu plus sur vous ! </h2>
+        <small>Pour information, votre page décorateur sera visible si vous avez publié au moins 1 tuto ! </small>
         {{ form_row(form.nickname, {
             label: 'Nom de décorateur (si vous voulez utiliser un autre nom que votre vrai nom)'
         }) }}

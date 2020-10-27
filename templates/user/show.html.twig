@@ -48,7 +48,9 @@
     </div>
     {% else %}
         {% if user == app.user %}
-        <p>Vous n'avez pas encore publié de tuto pour avoir une page décorateur ! Pourquoi ne pas se lancer maintenant ? <a href="{{ path('tutorial_new') }}"> Créer un tuto !</a></p>
+            <p>Vous n'avez pas encore publié de tuto pour avoir une page décorateur ! Pourquoi ne pas se lancer maintenant ? <a href="{{ path('tutorial_new') }}"> Créer un tuto !</a></p>
+            <a href="{{ path('my_account') }}" type="button" class="btn tutodeco-btn">Retour au profil</a>
+
         {% endif %}
     {% endif %}
 

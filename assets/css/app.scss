@@ -257,6 +257,7 @@ p {
 
 .tuto-container {
     background-color: white;
+    max-width: 320px;
     & h1 {
         background-color: #6EB5B1;
         color: white;
@@ -381,6 +382,7 @@ p {
 @media only screen and (min-width: 768px) {
 
     .tuto-container {
+        max-width: unset;
         & h1 {
             text-align: left;
         }
