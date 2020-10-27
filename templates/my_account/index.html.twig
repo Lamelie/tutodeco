@@ -54,10 +54,11 @@
                 <div class="tuto-tab-content">
                     <div class="row">
                     {% for tutorial in tutos %}
-                        <div class="col-lg-4 tuto-validinfo">
-                        {% if tutorial.validation == 1 %} <p>Ce tuto est publié !</p>
+                        <div class="tuto-validinfo">
+                        {% if tutorial.validation == 1 %} <p class="tuto-validinfo-text">Ce tuto est publié !</p>
                         {% else %} <p class="tuto-validinfo-text">Ce tuto n'est pas publié. Il est en train d'être relu par nos équipes !</p>
                         {% endif %}
+
                         {% include "default/_tutocard.html.twig" %}
                         </div>
                     {% else %}

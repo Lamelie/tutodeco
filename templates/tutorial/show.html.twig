@@ -5,7 +5,7 @@
 {% block body %}
 
 
-    <div class="row">
+    <section class="row">
         <div class="col-lg-8">
             <div class="card card-border card-tuto" >
                 <div class="card-body card-tuto-body">
@@ -80,8 +80,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row tuto-background">
+    </section>
+    <section class="row tuto-background">
         <div class="col-lg-6">
             <div class="card card-border">
                 <div class="card-title card-tuto-title">
@@ -140,7 +140,7 @@
                     </div>
                 </div>
             </form>
-            <section class="card card-border" id="comments">
+            <div class="card card-border" id="comments">
                 {% for comment in tutorial.comments %}
                     <article class="list-group-item">
                         <div class="d-flex w-100 justify-content-between">
@@ -156,10 +156,10 @@
                         </div>
                     </article>
                 {% endfor %}
-            </section>
+            </div>
         </div>
 
-    </div>
+    </section>
 
 
 

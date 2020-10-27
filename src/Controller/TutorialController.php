@@ -59,11 +59,11 @@ class TutorialController extends AbstractController
             $entityManager->persist($tutorial);
 
             $user = $tutorial->getUser();
-            $user->setRoles(['ROLE_USER','ROLE_DECO']);
+            //$user->setRoles(['ROLE_USER','ROLE_DECO']);
             $entityManager->persist($user);
 
             $entityManager->flush();
-            return $this->redirectToRoute('tutorial_index');
+            return $this->redirectToRoute('thankyou');
 
             } catch (\Exception $exception) {
                 echo 'Exception reçue : ', $exception->getMessage(), "\n";
@@ -74,6 +74,16 @@ class TutorialController extends AbstractController
             'tutorial' => $tutorial,
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/new/thankyou", name="thankyou")
+     * @return Response
+     */
+    public function confirmation() : Response
+    {
+        return $this->render('tutorial/thankyou.html.twig');
+
     }
 
     /**

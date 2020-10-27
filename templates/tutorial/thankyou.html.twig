@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tutoriel envoyé en modération{% endblock %}
+
+{% block body %}
+    <section class="containe tuto-container">
+        <h1>Merci !</h1>
+        <p>Votre tutoriel a bien été validé et est désormais en relecture par notre équipe.</p>
+        <p>Si vous souhaiter le modifier, c'est encore possible en allant dans votre rubrique <a href="{{ path('my_account') }}">"mon compte"</a>, rubrique "mes tutos".</p>
+        <p>En attendant la validation de votre tutoriel, n'hésitez pas à remplir <a href="{{ path('user_edit', {'id': app.user.id}) }}">votre profil</a> pour votre future page "décorateur" !</p>
+        <a class="btn tutodeco-btn" href="{{ path('homepage') }}">Revenir à l'accueil du site</a>
+    </section>
+
+{% endblock %}

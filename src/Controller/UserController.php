@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
-use http\Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,7 +36,7 @@ class UserController extends AbstractController
      */
     public function show(User $user): Response
     {
-        if ($user->getRoles() == ['ROLE_USER','ROLE_DECO'] OR $user == $this->getUser()) {
+        if ($user->getNbTuto() > 0 or $user == $this->getUser()) {
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);
@@ -68,6 +67,7 @@ class UserController extends AbstractController
             }else{
                 $slug = $slugger->slug($form->get('nickname')->getData())->lower();
             }
+
             $user->setSlug($slug);
             $em->persist($user);
             $em->flush();

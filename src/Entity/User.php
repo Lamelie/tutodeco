@@ -525,4 +525,16 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
+    /**
+     * Fonction pour récupérer le nombre de "todo" pour chaque tutoriel
+     * @return int
+     */
+    public function getNbTuto(): int
+    {
+        return array_reduce($this->getTutorials()->toArray(), function($carry, $tutorial) {
+            /** @var Tutorial $tutorial */
+            return $carry + ($tutorial->getUser()->getId() == $this->getId() AND $tutorial->getValidation() == 1 ? 1 : 0);
+        }, 0);
+    }
+
 }
