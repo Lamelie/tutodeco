@@ -17,6 +17,7 @@ easy_admin:
       list:
         actions: ['-new']
         fields:
+          - { property: 'imageName', type: 'image', base_path: '/uploads/tutorials' }
           - title
           - description
           - validation

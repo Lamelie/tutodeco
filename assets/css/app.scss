@@ -61,6 +61,7 @@ p {
 
 .tuto-background {
     background-color: #E5E5E5;
+    margin: auto;
 }
 
 .tutodeco-btn {
@@ -108,6 +109,10 @@ p {
                 display: none;
             }
         }
+    }
+    .tuto-background {
+        background-color: #E5E5E5;
+        margin: unset;
     }
 }
 
@@ -278,7 +283,8 @@ p {
 
 .tuto-container {
     background-color: white;
-    max-width: 320px;
+    max-width: 360px;
+    margin : auto;
     & h1 {
         background-color: #6EB5B1;
         color: white;
