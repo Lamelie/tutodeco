@@ -6,12 +6,15 @@
     <div class="tuto-container">
         <h1>Tous les tutos</h1>
         <div class="row">
-                {% for tutorial in tutorials %}
-            <div class="col-lg-4">
-            {% include 'default/_tutocard.html.twig' %}
-            </div>
+            {% for tutorial in tutorials %}
+                <div class="col-lg-4">
+                {% include 'default/_tutocard.html.twig' %}
+                </div>
+            {% endfor %}
 
-                {% endfor %}
+        </div>
+        <div class="pagination">
+            {{ knp_pagination_render(tutorials) }}
         </div>
     </div>
 

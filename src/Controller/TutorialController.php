@@ -11,6 +11,7 @@ use App\Form\TutorialType;
 use App\Repository\TutorialRepository;
 use App\Repository\UserTutorialRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +26,7 @@ class TutorialController extends AbstractController
     /**
      * @Route("/", name="tutorial_index", methods={"GET"})
      */
-    public function index(TutorialRepository $tutorialRepository): Response
+    public function index(TutorialRepository $tutorialRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $em = $this->getDoctrine();
 
@@ -33,6 +34,15 @@ class TutorialController extends AbstractController
             ['validation' => 1]
         );
         $userTutorials = $em->getRepository(UserTutorial::class)->findAll();
+
+        // Paginer les résultats de la requete
+
+        $tutorials = $paginator->paginate(
+            $tutorials,
+            $request->query->getInt('page', 1),
+            6
+        );
+
 
         return $this->render('tutorial/index.html.twig', [
             'tutorials' => $tutorials,

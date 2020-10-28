@@ -26,6 +26,7 @@ easy_admin:
           - { type: 'tab', label: 'Informations'}
           - title
           - description
+          - { property: 'imageFile', type: 'vich_image' }
           - {type: 'tab', label: 'étapes'}
           - {property: 'steps', label: 'étapes', type: 'collection', type_options: {entry_type: 'App\Form\StepType', by_reference: false}}
 
