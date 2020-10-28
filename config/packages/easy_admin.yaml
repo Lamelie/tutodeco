@@ -44,9 +44,47 @@ easy_admin:
           - {property: 'lastname', type: 'text'}
           - {property: 'firstname', type: 'text'}
           - nickname
-          - { property: 'roles', type: 'choice', type_options: {mapped: true, expanded: true, multiple: true, choices: { 'Utilisateur': 'ROLE_USER', 'Administrateur': 'ROLE_ADMIN', 'Décorateur':'ROLE_DECO' }}}
+          - { property: 'roles', type: 'choice', type_options: {mapped: true, expanded: true, multiple: true, choices: { 'Utilisateur': 'ROLE_USER', 'Administrateur': 'ROLE_ADMIN' }}}
           - { property: 'imageFile', type: 'vich_image' }
+    Material :
+      class: App\Entity\Material
+      list:
+        fields:
+          - label
+          - unit
+      form:
+        fields:
+          - label
+          - unit
+    Tool :
+      class: App\Entity\Tool
+      list:
+        fields:
+          - label
+          - unit
+      form:
+        fields:
+          - label
+          - unit
+    Comment :
+      class: App\Entity\Comment
+      list:
+        actions: ['-new', '-edit', 'show']
+        fields:
+          - content
+          - user
+          - tutorial
+          - createdAt
+      show:
+        actions: ['-edit']
+        fields:
+          - content
+          - user
+          - tutorial
+          - createdAt
+          - { property: 'picture', type: 'image', base_path: '/uploads/comments' }
+
     # change the following to the namespaces of your own entities
     #- App\Entity\Tag
-    #- App\Entity\Material
-    #- App\Entity\Tool
+    #-
+    #-

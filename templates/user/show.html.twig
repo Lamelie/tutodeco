@@ -3,7 +3,11 @@
 {% block title %}Tuto-Déco {{ user.firstName }} {{ user.lastName }}{% endblock %}
 
 {% block body %}
-    {% if user.getRoles == ['ROLE_USER'] %}
+    {% if user == app.user and user.getNbTuto == 0 %}
+        <p>Vous n'avez pas encore publié de tuto pour avoir une page décorateur ! Pourquoi ne pas se lancer maintenant ? <a href="{{ path('tutorial_new') }}"> Créer un tuto !</a></p>
+        <p>Vous avez créé un tutoriel mais votre page décorateur n'est pas active ? Un peu de patience, votre tutoriel est surement encore en cours de relecture ! </p>
+        <a href="{{ path('my_account') }}" type="button" class="btn tutodeco-btn">Retour au profil</a>
+    {% else %}
     <div class="row">
         <div class="col-lg-8">
             <div class="card card-border card-profile" >
@@ -54,13 +58,8 @@
             </div>
         </div>
     </div>
-    {% else %}
-        {% if user == app.user and user.getNbTuto == 0 %}
-            <p>Vous n'avez pas encore publié de tuto pour avoir une page décorateur ! Pourquoi ne pas se lancer maintenant ? <a href="{{ path('tutorial_new') }}"> Créer un tuto !</a></p>
-            <p>Vous avez créé un tutoriel mais votre page décorateur n'est pas active ? Un peu de patience, votre tutoriel est surement encore en cours de relecture ! </p>
-            <a href="{{ path('my_account') }}" type="button" class="btn tutodeco-btn">Retour au profil</a>
 
-        {% endif %}
+
     {% endif %}
 
 {% endblock %}

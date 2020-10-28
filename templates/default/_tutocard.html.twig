@@ -7,6 +7,11 @@
                     {% if app.user == tutorial.user and tutorial.validation == 0%}<a href="{{ path('tutorial_edit', {'id' : tutorial.id}) }}"><i class="fas fa-edit card-tuto-edit"></i></a>
                     {% endif %}
                 </div>
+                {% if app.user == tutorial.user and tutorial.validation == 1 %}
+                    <p class="tuto-validinfo-text">Votre tuto est publié !</p>
+                {% elseif app.user == tutorial.user and tutorial.validation == 0 %}
+                    <p class="tuto-validinfo-text">Votre tuto est cours de relecture. Il n'est pas publié.</p>
+                {% endif %}
                 <a href="{{ path('tutorial_show', {'id': tutorial.id}) }}">
                     <img id="{{ tutorial.id }}" src="{{ asset('uploads/tutorials/' ~ tutorial.imageName) }}" alt="{{ tutorial.imageName }}" class="img-fluid card-tuto-image card-tuto-list-image">
                     <div class="btn seemore-button tutodeco-btn" id="seemore-button-{{ tutorial.id }}" style="display: none">Voir plus</div>

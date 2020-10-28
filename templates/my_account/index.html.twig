@@ -6,15 +6,14 @@
     {% if app.user.isVerified == false %}
     <p>Attention, vous n'avez pas encore confirmé votre email. Merci de vérifier votre boite mail et de valider votre adresse mail.</p>
     {% else %}
-<div class="row">
-    <div class="tuto-container col-md-12">
 
+    <div class="container tuto-container">
         <h1>Mon Compte</h1>
 
         <p>{{ app.user.firstName }}, voici votre compte.
         <a href="{{ path('user_show', {'slug': app.user.slug}) }}">Voir mon profil !</a> ou <a href="{{ path('user_edit', {'id': app.user.id}) }}">Editer mon profil !</a></p>
 
-        <ul class="nav nav-tabs myaccount-tab col-md-6" id="myTab" role="tablist">
+        <ul class="nav nav-tabs myaccount-tab col-md-8" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <a class="nav-link active" id="todo-tab" data-toggle="tab" role="tab" aria-controls="todo" href="#todo">Ma todo-list ({{ todos|length }})</a>
             </li>
@@ -25,10 +24,11 @@
                 <a class="nav-link" id="tutos-tab" data-toggle="tab" role="tab" href="#tutos" aria-controls="tutos">Mes tutos ({{ tutos|length }})</a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link" id="tutos-tab" data-toggle="tab" role="tab" href="#abos" aria-controls="tutos">Mes abonnements ({{ app.user.userTos|length }})</a>
+                <a class="nav-link" id="abos-tab" data-toggle="tab" role="tab" href="#abos" aria-controls="abos">Mes abonnements ({{ app.user.userTos|length }})</a>
             </li>
         </ul>
 
+        <div class="row">
         <div class="tab-content" id="myTabContent">
             <div id="todo" class="tab-pane fade show in active" role="tabpanel" aria-labelledby="todo-tab">
                 <div class="tuto-tab-content">
@@ -52,30 +52,25 @@
             </div>
             <div id="tutos" class="tab-pane fade tuto-tab-content" role="tabpanel" aria-labelledby="tutos-tab">
                 <div class="tuto-tab-content">
-                    <div class="row">
                     {% for tutorial in tutos %}
-                        <div class="tuto-validinfo">
-                        {% if tutorial.validation == 1 %} <p class="tuto-validinfo-text">Ce tuto est publié !</p>
-                        {% else %} <p class="tuto-validinfo-text">Ce tuto n'est pas publié. Il est en train d'être relu par nos équipes !</p>
-                        {% endif %}
 
                         {% include "default/_tutocard.html.twig" %}
-                        </div>
                     {% else %}
                         <p>Vous n'avez pas encore créé de tuto ! Pourquoi ne pas vous lancer maintenant ?
                             <a href="{{ path('tutorial_new') }}">Créer un tuto</a></p>
                     {% endfor %}
-                    </div>
                 </div>
             </div>
-            <div id="abos" class="tab-pane fade tuto-tab-content" role="tabpanel" aria-labelledby="tutos-tab">
-                <ul>
-                    {% for userto in app.user.userTos %}
-                    <li><a href="{{ path('user_show', {'slug': userto.slug}) }}">{{ userto.firstName }} {{ userto.lastName }}</a></li>
-                    {% else %}
-                        <p>Vous ne suivez aucun décorateur pour le moment.
-                    {% endfor %}
-                </ul>
+            <div id="abos" class="tab-pane fade tuto-tab-content" role="tabpanel" aria-labelledby="abos-tab">
+                <div class="tuto-tab-content">
+                    <ul>
+                        {% for userto in app.user.userTos %}
+                        <li><a href="{{ path('user_show', {'slug': userto.slug}) }}">{{ userto.firstName }} {{ userto.lastName }}</a></li>
+                        {% else %}
+                            <p>Vous ne suivez aucun décorateur pour le moment.
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
 
