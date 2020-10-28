@@ -39,18 +39,19 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
             $user->setRoles(["ROLE_USER"]);
-            $user->setNickname($form['last_name']->getData().'-'.$form['first_name']->getData());
+            //ajoute un nom d'utilisateur par défaut
+            $user->setNickname($form['last_name']->getData().' '.$form['first_name']->getData());
+            //ajoute un slug par défaut
             $slug = $slugger->slug($form['last_name']->getData().'-'.$form['first_name']->getData(), '-')->lower();
             $user->setSlug($slug);
+            // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
             );
-
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
@@ -94,8 +95,14 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_register');
         }
 
-        $this->addFlash('success', 'Votre email a bien été vérifié');
+        return $this->redirectToRoute('verification_ok');
+    }
 
-        return $this->redirectToRoute('homepage');
+    /**
+     * @Route("/verify/ok", name="verification_ok")
+     */
+    public function verificationOk(): Response
+    {
+        return $this->render("registration/verification_ok.html.twig");
     }
 }

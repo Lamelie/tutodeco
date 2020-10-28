@@ -50,6 +50,15 @@ p {
     font-size: 2rem;
 }
 
+.page, .current, .previous, .next, .last, .first {
+    margin: 1rem;
+    font-weight: bold;
+}
+
+.pagination {
+    justify-content: center;
+}
+
 .tuto-background {
     background-color: #E5E5E5;
 }
@@ -472,7 +481,7 @@ p {
 .tuto-validinfo {
     text-align: center;
     &-text {
-        margin-bottom: -1rem;
+        margin-bottom: -0.5rem;
     }
 }
 

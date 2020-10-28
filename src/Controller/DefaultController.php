@@ -8,6 +8,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
@@ -57,7 +58,7 @@ class DefaultController extends AbstractController
     /**
      * @param Request $request
      * @param TutorialRepository $repository
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function tutoNav (Request $request, TutorialRepository $repository)
     {
@@ -70,6 +71,15 @@ class DefaultController extends AbstractController
         return $this->render("default/_menu.html.twig", [
             'searchForm' => $searchForm->createView()
         ]);
+    }
+
+    /**
+     * @route("/conditions", name="conditions")
+     * @return Response
+     */
+    public function conditions ()
+    {
+        return $this->render("default/conditions.html.twig");
     }
 
 
