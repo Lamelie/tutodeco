@@ -31,17 +31,17 @@
 
         <ul class="navbar-nav">
             <li>
-                <a href="{{ path('tutorial_index') }}">Tous les tutos</a>
+                <a class="menu-tab" href="{{ path('tutorial_index') }}">Tous les tutos</a>
             </li>
             <li>
-                <a href="#">Les plus commentés</a>
+                <a class="menu-tab" href="#">Les plus commentés</a>
             </li>
             <li>
-                <a href="#">Les plus réalisés</a>
+                <a class="menu-tab" href="#">Les plus réalisés</a>
             </li>
             <li>
                 {% if app.user %}
-                <a class="btn tutodeco-btn tutodeco-btn-create" href="{{ path('tutorial_new') }}">Créer un tuto</a>
+                <a class="btn tutodeco-btn menu-tab tutodeco-btn-create" href="{{ path('tutorial_new') }}">Créer un tuto</a>
                 {% endif %}
             </li>
         </ul>

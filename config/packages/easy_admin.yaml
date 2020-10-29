@@ -1,6 +1,6 @@
 # config/packages/easy_admin.yaml
 easy_admin:
-  site_name: 'TUTO-DECO'
+  site_name: '<a href="/">TUTO-DECO</a>'
   design:
     form_theme:
       - '@EasyAdmin/form/bootstrap_4.html.twig'

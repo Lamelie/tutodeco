@@ -19,7 +19,7 @@ class TutorialSearchType extends AbstractType
                 'required' => false,
             ])
             ->add('duration', NumberType::class, [
-                'label' => 'Durée max',
+                'label' => 'Durée max (en min)',
                 'required' => false,
             ])
             ->add('level')

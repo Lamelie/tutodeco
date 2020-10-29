@@ -30,17 +30,18 @@ class TutorialController extends AbstractController
     {
         $em = $this->getDoctrine();
 
-        $tutorials = $tutorialRepository->findby(
-            ['validation' => 1]
+        $data = $tutorialRepository->findby(
+            ['validation' => 1],
+            ['createdAt' => 'DESC']
         );
         $userTutorials = $em->getRepository(UserTutorial::class)->findAll();
 
         // Paginer les résultats de la requete
 
         $tutorials = $paginator->paginate(
-            $tutorials,
+            $data,
             $request->query->getInt('page', 1),
-            6
+            12
         );
 
 
@@ -108,7 +109,10 @@ class TutorialController extends AbstractController
         $em = $this->getDoctrine();
 
         //ajout des étapes
-        $steps = $em->getRepository(Step::class)->findBy(['tutorial' => $tutorial]);
+        $steps = $em->getRepository(Step::class)->findBy(
+            ['tutorial' => $tutorial],
+                ['number' => 'ASC']
+            );
 
         //ajout du formulaire de commentaires
         $comment = new Comment();

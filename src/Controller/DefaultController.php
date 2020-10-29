@@ -26,7 +26,9 @@ class DefaultController extends AbstractController
         $searchForm->handleRequest($request);
 
         $data = $repository->findby(
-            ['validation' => 1]);
+            ['validation' => 1],
+            ['createdAt' => 'DESC']
+        );
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
 
@@ -50,6 +52,7 @@ class DefaultController extends AbstractController
         );
 
         return $this->render('default/index.html.twig',[
+            'nbtutorials' => $data,
             'tutorials' => $tutorials,
             'searchForm' => $searchForm->createView()
         ]);

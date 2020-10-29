@@ -49,13 +49,13 @@
                         {% if app.user %}
                             {% if tutorial.isTodoByUser(app.user) == true %}
                                 <i class="fas fa-clipboard-list card-tuto-picto"></i>
-                                <p class="js-message-todo text-muted">Dans votre todo-list !</p>
                             {% else %}
                                 <i class="far fa-clipboard card-tuto-picto"></i>
                             {% endif %}
                         {% else %}
                             <i class="far fa-clipboard card-tuto-picto"></i>
                         {% endif %}
+                        <p class="js-message-todo text-muted">A faire</p>
                     </a>
                     <a href="{{ path('tutorial_done', {'id' : tutorial.id}) }}" class="btn btn-link tuto-commentnb js-done-link {% if app.user == tutorial.user %} disabled {% endif %}">
                         <span class="js-nbDone ">
@@ -64,17 +64,18 @@
                         {% if app.user %}
                             {% if tutorial.isDoneByUser(app.user) == true %}
                                 <i class="fas fa-check-square card-tuto-picto"></i>
-                                <p class="js-message-done text-muted">Vous l'avez fait !</p>
                             {% else %}
                                 <i class="far fa-check-square card-tuto-picto"></i>
                             {% endif %}
                         {% else %}
                             <i class="far fa-check-square card-tuto-picto"></i>
                         {% endif %}
+                        <p class="js-message-done text-muted">Fait</p>
                     </a>
                     <a href="#comments" class="btn tuto-commentnb">
                             {{ tutorial.comments|length }}
-                        <i class="fas fa-comments card-tuto-picto"></i>
+                        <i class="far fa-comments card-tuto-picto"></i>
+                        <p class="text-muted">Commentaires</p>
                     </a>
 
                 </div>

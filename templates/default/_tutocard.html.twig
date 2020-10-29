@@ -25,13 +25,13 @@
                             {% if app.user %}
                                 {% if tutorial.isTodoByUser(app.user) == true %}
                                     <i class="fas fa-clipboard-list card-tuto-picto"></i>
-                                    <p class="js-message-todo text-muted">Dans votre todo-list !</p>
                                 {% else %}
                                     <i class="far fa-clipboard card-tuto-picto"></i>
                                 {% endif %}
                             {% else %}
                                 <i class="far fa-clipboard card-tuto-picto"></i>
                             {% endif %}
+                            <p class="js-message-todo text-muted">A faire</p>
                         </a>
                     </div>
                     <div>
@@ -42,13 +42,13 @@
                             {% if app.user %}
                                 {% if tutorial.isDoneByUser(app.user) == true %}
                                     <i class="fas fa-check-square card-tuto-picto"></i>
-                                    <p class="js-message-done text-muted">Vous l'avez fait !</p>
                                 {% else %}
                                     <i class="far fa-check-square card-tuto-picto"></i>
                                 {% endif %}
                             {% else %}
                                 <i class="far fa-check-square card-tuto-picto"></i>
                             {% endif %}
+                            <p class="js-message-done text-muted">Fait</p>
                         </a>
                     </div>
                 </div>
