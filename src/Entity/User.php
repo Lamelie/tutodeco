@@ -537,4 +537,39 @@ class User implements UserInterface, \Serializable
         }, 0);
     }
 
+    /**
+     *
+     * Permet de savoir si le tutoriel a été fait par l'utilisateur ou pas
+     *
+     * @param User $user
+     * @return boolean
+     */
+    public function isDoneByUser (User $user) : bool
+    {
+        $userTutorials = $this->getUserTutorials();
+        foreach ($userTutorials as $userTutorial) {
+            if ($userTutorial->getUser() === $user and $userTutorial->getDone() === true) {
+                return true;
+            }
+        } return false;
+    }
+
+
+    /**
+     * Permet de savoir si l'utilisateur est abonné à ce décorateur.
+     *
+     * @param User $userFrom
+     * @return bool
+     */
+    public function isSubscribedByUser(User $userFrom) : bool
+    {
+        $userFroms = $this->getUserFroms();
+        foreach ($userFroms as $userFrom2) {
+            if ($userFrom2 === $userFrom) {
+                return true;
+            }
+        } return false;
+    }
+
+
 }

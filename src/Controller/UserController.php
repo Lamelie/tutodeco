@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -44,6 +45,60 @@ class UserController extends AbstractController
         else {
             throw $this->createAccessDeniedException("Vous n'avez pas le droit d'accéder à cette page");
         }
+    }
+
+    /**
+     * Permet de s'abonner ou se désabonner d'un décorateur
+     *
+     * @Route("/{slug}/subscribe", name="deco_subscribe")
+     *
+     * @param User $userTo
+     * @param EntityManagerInterface $manager
+     * @param UserRepository $userRepository
+     * @return Response
+     */
+    public function subscribe(User $userTo, EntityManagerInterface $manager, UserRepository $userRepository): Response
+    {
+        $userFrom = $this->getUser();
+
+        if(!$userFrom) return $this->json([
+            'code' => 403,
+            'message' => "unauthorized"
+        ], 403);
+
+        //Recherche de la ligne correspondant à ce "subscribed"(=userFrom) dans la table user
+        if($userTo->isSubscribedByUser($userFrom)){
+            $subscribed = $userRepository->findOneBy([
+                'userTos'=> $userTo,
+                'userFroms'=>$userFrom,
+            ]);
+            //suppression de la donnée
+            $manager->remove($subscribed);
+            $manager->flush();
+
+            //envoi de l'information via requête HTTP
+            return $this->json([
+                'code' => 200,
+                'message' => "abonnement supprimé",
+                'subscribers' => $userRepository->count([
+                    'userTos'=> $userTo,
+                ]),
+            ], 200);
+        }
+
+        $userTo->addUserFrom($userFrom);
+
+        $manager->persist($userTo);
+        $manager->flush();
+
+        return $this->json([
+            "code"=>200,
+            "message"=>"abonnement ajouté",
+            'subscribers' => $userRepository->count([
+                'userTos'=> $userTo,
+            ]),
+
+        ], 200);
     }
 
     /**

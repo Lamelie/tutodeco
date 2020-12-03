@@ -20,7 +20,7 @@
                     <div>
                         <a href="{{ path('tutorial_todo', {'id' : tutorial.id}) }}" class="btn btn-link card-tuto-picto-nb js-todo-link {% if app.user == tutorial.user %} disabled {% endif %}" {% if app.user %}data-toggle="popover" data-content="Ajouté en todo" data-delay={"show":100,"hide":100} {% endif %}>
                                             <span class="js-nbTodo">
-                                                {{ tutorial.nbTodo }}
+                                                {{ tutorial.nbTodo}}
                                             </span>
                             {% if app.user %}
                                 {% if tutorial.isTodoByUser(app.user) == true %}

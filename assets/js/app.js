@@ -161,12 +161,39 @@ $(document).ready(function () {
     $todoLinks.on('click', onClickBtnTodo);
 })
 
+//permet de s'abonner
+$(document).ready(function () {
+
+    function onClickBtnSubscribe(event) {
+        event.preventDefault();
+
+        const url = this.href;
+        const nbSubscribers = $('.js-nbSubscribers', this)
+
+        //récupère les données envoyées en Json au clic sur le bouton.
+        axios.get(url).then(function (response) {
+            //récupère le nombre d'abonnés
+            const subscribers = response.data.subscribers;
+            //affiche le nombre d'abonnés
+            nbSubscribers.text(subscribers);
+
+        }).catch(function (error) {
+            if(error.response.status === 403) {
+                window.location.href = '/login'
+            }
+        })
+    }
+    //applique la fonction au clic sur l'icone.
+    const $subscribeLinks = $('a.js-subscribe-link')
+    $subscribeLinks.on('click', onClickBtnSubscribe);
+})
+
 //faire apparaitre le nom du fichier dans l'input (form)
 
 const input = $('.custom-file-input')
 
-
 input.on('change', function(event) {
+    console.log("coucou1")
     const inputFile = event.currentTarget;
     //si pas de fichier dans l'input
     if(inputFile.files.length===0){
@@ -174,15 +201,43 @@ input.on('change', function(event) {
         $(inputFile).parent()
             //trouve le label
             .find('.custom-file-label')
-            .html("Selectionner une image");
+            .html("Sélectionner une image");
     }else {
         //si un fichier téléchargé
         $(inputFile).parent()
             .find('.custom-file-label')
             //remplace le placeholder par le nom du fichier
-            .html(inputFile.files[inputFile.files.length-1].name);
+            .html(inputFile.files[0].name);
     }
 });
+
+//affiche le nom des fichiers pour l'upload des images dans les étapes
+
+const input2 = $('#tutorial_steps_0_imageFile_file')
+
+input2.on('change', function(event) {
+    console.log("coucou2")
+    const inputFile2 = event.currentTarget;
+    //si pas de fichier dans l'input
+    if(inputFile2.files.length===0){
+        //trouve le parent de l'input
+        $(inputFile2).parent()
+            //trouve le label
+            .find('.custom-file-label')
+            .html("Sélectionner une image");
+    }else {
+        //si un fichier téléchargé
+        $(inputFile2).parent()
+            .find('.custom-file-label')
+            //remplace le placeholder par le nom du fichier
+            console.log(inputFile2.files[0].name)
+            .html(inputFile2.files[0].name);
+
+    }
+});
+
+
+
 
 
 

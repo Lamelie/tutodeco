@@ -35,10 +35,17 @@
         <div class="col-lg-4">
             <div class="card card-border">
                 <div class="card-body card-profile-follow">
-                    <a href="#" class="card-profile-subscribe">S'abonner</a>
+                    <a href="{{ path('deco_subscribe', {'slug': user.slug}) }}" class="card-profile-subscribe js-subscribe-link">
+                        {% if user.subscribedByUser(app.user) == true %}
+                            Abonné !
+                        {% else  %}
+                            S'abonner
+                        {% endif %}
+                    </a>
+
                     <div>
-                        <a href="#" class="card-link">{{ user.userTos.count }} abonnements</a>
-                        <a href="#" class="card-link">{{ user.userFroms.count }} abonnés</a>
+                        <p class="card-link">{{ user.userTos.count }} abonnement(s)</p>
+                        <p class="card-link js-nbSubscribers">{{ user.userFroms.count }} abonné(s)</p>
                     </div>
                 </div>
             </div>
