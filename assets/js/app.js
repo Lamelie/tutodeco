@@ -6,6 +6,7 @@
  */
 require('bootstrap');
 //require('./captcha');
+require('select2/dist/js/select2.min')
 
 // any CSS you import will output into a single css file (app.css in this case)
 import '../css/app.scss';
@@ -234,6 +235,12 @@ input2.on('change', function(event) {
             .html(inputFile2.files[0].name);
 
     }
+});
+
+//mise en place du select2 pour le formulaire de création de tutoriel
+
+$(document).ready(function() {
+    $('.js-multiple').select2();
 });
 
 

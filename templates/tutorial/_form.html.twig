@@ -4,14 +4,14 @@
     {{ form_row(form.description) }}
     {{ form_row(form.imageFile, {'label' : 'Photo'}) }}
     <h2>Fournitures</h2>
-    {{ form_row(form.materials, {'label' : 'Matériel'}) }}
-    {{ form_row(form.tools, {'label' : 'Outils'}) }}
+    {{ form_row(form.materials, {'label' : 'Matériel', 'attr' : {'class' : 'js-multiple'}}) }}
+    {{ form_row(form.tools, {'label' : 'Outils', 'attr' : {'class' : 'js-multiple'}}) }}
     <h2>Information supplémentaires</h2>
     {{ form_row(form.duration, {'label' : 'Durée en minutes'}) }}
     {{ form_row(form.level, {'label' : 'Difficulté'}) }}
     {{ form_row(form.cost, {'label' : 'Budget'}) }}
 
-    {{ form_row(form.tags) }}
+    {{ form_row(form.tags, {'attr' : {'class' : 'js-multiple'}}) }}
     {{ form_row(form._token) }}
 
     <h2>Etapes</h2>

@@ -62,7 +62,7 @@
                 </div>
             </div>
             <div id="abos" class="tab-pane fade tuto-tab-content" role="tabpanel" aria-labelledby="abos-tab">
-                <div class="tuto-tab-content">
+                <div class="tuto-tab-content tuto-tab-abolist">
                     <ul>
                         {% for userto in app.user.userTos %}
                         <li><a href="{{ path('user_show', {'slug': userto.slug}) }}">{{ userto.firstName }} {{ userto.lastName }}</a></li>

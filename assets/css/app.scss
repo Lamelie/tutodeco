@@ -1,5 +1,6 @@
 @import "~bootstrap/scss/bootstrap";
 @import "~@fortawesome/fontawesome-free/css/all.css";
+@import "~select2/dist/css/select2.css";
 /* ropa-sans-regular - latin */
 @font-face {
     font-family: 'Ropa Sans';
@@ -480,10 +481,16 @@ p {
     justify-content: space-around;
 }
 
+.tuto-tab-abolist {
+    margin-right: 1rem;
+    margin-top: 1rem;
+}
+
 .tuto-tab-content {
     display: flex;
     width: 100%;
     flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .tuto-validinfo {
