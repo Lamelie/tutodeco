@@ -3,39 +3,20 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Tutorial;
-use App\Entity\User;
-use App\Entity\UserTutorial;
 use PHPUnit\Framework\TestCase;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TutorialTest extends TestCase
 {
-    public function testIsDoneByUser()
-    {
+
+    public function testTutoTitle() {
         $tutorial = new Tutorial();
-        $user = new User();
-        $userTutorial = new UserTutorial();
-        $userTutorial->setUser($user);
-        $userTutorial->setTutorial($tutorial);
-        $userTutorial->setDone(true);
+        $tutorial->setTitle('blabla');
 
-        $result = $tutorial->isDoneByUser($user);
+        $result = $tutorial->getTitle();
 
-        $this->assertEquals(true, $result);
+        $this->assertEquals('blabla', $result);
     }
 
-    public function testIsTodoByUser()
-    {
-        $tutorial = new Tutorial();
-        $user = new User();
-        $userTutorial = new UserTutorial();
-        $userTutorial->setUser($user);
-        $userTutorial->setTutorial($tutorial);
-        $userTutorial->setTodo(true);
 
-        $result = $tutorial->isTodoByUser($user);
-
-        $this->assertEquals(true, $result);
-    }
 }
 
