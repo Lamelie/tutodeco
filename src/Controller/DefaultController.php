@@ -85,6 +85,14 @@ class DefaultController extends AbstractController
         return $this->render("default/conditions.html.twig");
     }
 
+    /**
+     * @route("/whoarewe", name="whoarewe")
+     * @return Response
+     */
+    public function whoarewe ()
+    {
+        return $this->render("default/whoarewe.html.twig");
+    }
 
 
 }

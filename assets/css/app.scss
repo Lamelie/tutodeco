@@ -65,6 +65,11 @@ p {
     margin: auto;
 }
 
+.tutodeco-footer {
+    margin-left : 0;
+    margin-right : 0;
+}
+
 .tutodeco-btn {
     background-color: #6EB5B1;
     border: none;
@@ -171,6 +176,10 @@ p {
 /* pour tablettes en mode paysage (768px et plus) */
 @media only screen and (min-width: 768px) {
 
+    .tutologo {
+        height: 6rem;
+    }
+
     .menu-tab {
         font-size: 1.5rem;
     }
@@ -220,7 +229,7 @@ p {
         padding: 5px;
     }
     &-image {
-        width: 20rem;
+        width: 16rem;
         height: 15rem;
         object-fit: cover;
     }

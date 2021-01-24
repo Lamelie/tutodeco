@@ -131,11 +131,16 @@ $(document).ready(function () {
 //permet l'ajout en todolist
 $(document).ready(function () {
 
+    //création de la fonction au clic sur le bouton "TODO"
     function onClickBtnTodo(event) {
+        //empecher la page de se recharger
         event.preventDefault();
 
+        //url de la page en cours
         const url = this.href;
+        //affichage actuel du nb de todos
         const nbTodo = $('.js-nbTodo', this)
+        //icone todo actuelle
         const icone = $('i', this)
 
         //récupère les données envoyées en Json au clic sur le bouton.
@@ -152,6 +157,7 @@ $(document).ready(function () {
                 icone.removeClass('far fa-clipboard').addClass('fas fa-clipboard-list')
             }
         }).catch(function (error) {
+            //renvoi vers la page de login en cas d'erreur 403
             if(error.response.status === 403) {
                 window.location.href = '/login'
             }
@@ -183,6 +189,7 @@ $(document).ready(function () {
                 window.location.href = '/login'
             }
         })
+        document.location.reload()
     }
     //applique la fonction au clic sur l'icone.
     const $subscribeLinks = $('a.js-subscribe-link')

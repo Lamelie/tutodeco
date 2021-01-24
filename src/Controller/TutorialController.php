@@ -70,7 +70,6 @@ class TutorialController extends AbstractController
             $entityManager->persist($tutorial);
 
             $user = $tutorial->getUser();
-            //$user->setRoles(['ROLE_USER','ROLE_DECO']);
             $entityManager->persist($user);
 
             $entityManager->flush();
@@ -151,6 +150,7 @@ class TutorialController extends AbstractController
     {
         $user = $this->getUser();
 
+        //vérifie que l'utilisateur en ligne est bien autorisé à effectuer l'opération
         if(!$user) return $this->json([
             'code' => 403,
             'message' => "unauthorized"
@@ -225,6 +225,7 @@ class TutorialController extends AbstractController
     {
         $user = $this->getUser();
 
+        //utilisateur non connecté --> non autorisé (statut 403)
         if(!$user) return $this->json([
             'code' => 403,
             'message' => "unauthorized"

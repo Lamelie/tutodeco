@@ -67,37 +67,34 @@ class UserController extends AbstractController
         ], 403);
 
         //Recherche de la ligne correspondant à ce "subscribed"(=userFrom) dans la table user
-        if($userTo->isSubscribedByUser($userFrom)){
-            $subscribed = $userRepository->findOneBy([
-                'userTos'=> $userTo,
-                'userFroms'=>$userFrom,
-            ]);
-            //suppression de la donnée
-            $manager->remove($subscribed);
-            $manager->flush();
-
-            //envoi de l'information via requête HTTP
-            return $this->json([
-                'code' => 200,
-                'message' => "abonnement supprimé",
-                'subscribers' => $userRepository->count([
-                    'userTos'=> $userTo,
-                ]),
-            ], 200);
-        }
+//        if($userTo->isSubscribedByUser($userFrom)){
+//
+//            //requête à corriger
+//            $subscribed = $userRepository->findOneBy([
+//                'userTos'=> $userTo,
+//                'userFroms'=>$userFrom,
+//            ]);
+//            //suppression de la donnée
+//            $manager->remove($subscribed);
+//            $manager->flush();
+//
+//            //envoi de l'information via requête HTTP
+//            return $this->json([
+//                'code' => 200,
+//                'message' => "abonnement supprimé",
+//                'subscribers' => $userRepository->count([
+//                    'userTos'=> $userTo,
+//                ]),
+//            ], 200);
+//        }
 
         $userTo->addUserFrom($userFrom);
-
         $manager->persist($userTo);
         $manager->flush();
 
         return $this->json([
-            "code"=>200,
-            "message"=>"abonnement ajouté",
-            'subscribers' => $userRepository->count([
-                'userTos'=> $userTo,
-            ]),
-
+            'code'=>200,
+            'message'=>"abonnement ajouté"
         ], 200);
     }
 

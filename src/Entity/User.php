@@ -561,11 +561,11 @@ class User implements UserInterface, \Serializable
      * @param User $userFrom
      * @return bool
      */
-    public function isSubscribedByUser(User $userFrom) : bool
+    public function isSubscribedByUser(User $subscriber) : bool
     {
         $userFroms = $this->getUserFroms();
-        foreach ($userFroms as $userFrom2) {
-            if ($userFrom2 === $userFrom) {
+        foreach ($userFroms as $userFrom) {
+            if ($userFrom === $subscriber) {
                 return true;
             }
         } return false;
